@@ -1,0 +1,7 @@
+Build-By: jayant
+Build-Jdk: 1.6.0_32
+Implementation-Title: bpms-dashboard
+Implementation-Version: 
+Manifest-Version: 1.0
+Created-By: Buildr
+

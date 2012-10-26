@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<security>
+
+    <defaultRealm>intalio</defaultRealm>
+
+    <caseSensitive>false</caseSensitive>
+
+    <realm identifier="intalio">
+        <user identifier="admin">
+            <name>Admininistrator</name>
+            <email>admin@example.com</email>
+            <password>changeit</password>
+            <assignRole>ProcessAdministrator</assignRole>
+        </user>
+    
+        <user identifier="manager">
+                <name>Manager</name>
+                <email>manager@example.com</email>
+                <password>changeit</password>
+                <assignRole>ProcessManager</assignRole>
+        </user>
+        
+        <user identifier="employee">
+                <name>Employee</name>
+                <email>employee@example.com</email>
+                <password>changeit</password>
+        </user>
+    
+        <role identifier="ProcessAdministrator">
+            <description>Process Administrator</description>
+            <descendantRole>ProcessManager</descendantRole>
+        </role>
+
+        <role identifier="ProcessManager">
+            <description>Process Manager</description>
+        </role>
+    </realm>
+
+</security>

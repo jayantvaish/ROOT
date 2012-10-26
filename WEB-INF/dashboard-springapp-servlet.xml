@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<import resource="file:${org.intalio.tempo.configDirectory}/tempo-ui-fw.xml"/>
+        <import resource="file:${org.intalio.tempo.configDirectory}/tempo-ui-fw-servlet.xml"/>
+	<!--<import resource="file:${com.intalio.bpms.configDirectory}/console/console-config.xml"/>
+	<import resource="file:${com.intalio.bpms.configDirectory}/console/console-springapp-servlet.xml"/>-->
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" />
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/data.json">dashboardDataController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="dashboardDataController"
+          class="com.intalio.bpms.dashboard.data.controller.DashboardDataController">
+          <constructor-arg>
+          	<ref bean="tms.daoFactory"/>
+          </constructor-arg>
+          <property name="loginController">
+		  	<ref bean="loginController"/>
+	  </property>
+    </bean>
+
+
+<bean id="consoleConfiguration" class="com.intalio.bpms.console.config.ConsoleConfiguration" factory-method="getInstance">
+        <property name="processManagementURI" value="rmi://localhost:2099/jcaServer"/>
+    </bean>
+
+
+<bean id="loginController"
+          class="org.intalio.tempo.web.controller.LoginController" >
+      <constructor-arg index="0" ref="tokenService"/>
+      <constructor-arg index="1" value="processes.htm"/>
+
+        <property name="commandName">
+            <value>login</value>
+        </property>
+        <property name="commandClass" value="org.intalio.tempo.web.controller.LoginCommand"/>
+        <property name="validator">
+            <bean id="loginValidator"
+                  class="org.intalio.tempo.web.controller.LoginController$LoginValidator"/>
+        </property>
+        <property name="grantedRoles">
+          <list>
+            <value>intalio\ProcessAdministrator</value>
+            <value>intalio\ProcessManager</value>
+          </list>
+        </property>
+    </bean>
+
+    <bean id="tokenService" class="org.intalio.tempo.security.ws.TokenClient">
+      <constructor-arg value="http://localhost:8080/axis2/services/TokenService"/>
+    </bean>
+    
+</beans>
