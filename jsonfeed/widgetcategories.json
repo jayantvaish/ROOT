@@ -4,15 +4,21 @@
   "category": [
     {
       "id":1,
-      "title" : "My category",
+      "title" : "Process Category",
       "amount" : 2,
       "url" : "jsonfeed/category1_widgets.json"
     },
     {
       "id":2,
-      "title" : "Another category",
+      "title" : "Task Category",
       "amount": 1,
       "url" : "jsonfeed/category2_widgets.json"
+    },
+    {
+      "id":3,
+      "title" : "Others",
+      "amount": 0,
+      "url" : "jsonfeed/category3_widgets.json"
     }
   ]
   }

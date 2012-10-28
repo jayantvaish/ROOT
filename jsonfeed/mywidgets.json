@@ -4,27 +4,24 @@
   "layout": "layout2",
   "data" : [
     {
-      "title" : "Documentation",
+      "title" : "Average Completion Time Of A Process",
       "id" : "widget1",
       "column" : "first",
-      "editurl" : "widgets/editwidget1.jsp",
       "open" : true,
-      "url" : "widgets/widget1.jsp"
+      "url" : "widgets/avg_completion_time.jsp"
     },
     {
-      "title" : "Download plugin",
+      "title" : "Processes-Instances Status Count",
       "column" : "second",
-      "id" : "widget3",
-      "url" : "widgets/widget3.jsp",
-      "editurl" : "widgets/editwidget3.jsp",
+      "id" : "widget2",
+      "url" : "widgets/instance_status_cnt.jsp",
       "open" : true
     },
     {
-      "title" : "Examples",
-      "id" : "widget2",
+      "title" : "User-wise Pending/Claimed task count",
+      "id" : "widget3",
       "column" : "second",
-      "url" : "widgets/widget2.jsp",
-      "editurl" : "widgets/editwidget2.jsp",
+      "url" : "widgets/user_task_count.jsp",
       "open" : true
     }
   ]

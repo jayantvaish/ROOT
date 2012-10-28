@@ -1,8 +1,13 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
 <script type="text/javascript">
 getData();
 function getData()
 {
-	var url = './data.json?filter=1d';
+	var url = '../data.json?filter=1d';
 	$.ajax({
 		  url: url,
 		  cache:false,
@@ -45,13 +50,13 @@ function createAvgProcessCompTimeChartData(data)
 	if (!isObjectEmpty(data.completedInstances)) {
 		$.each(data.completedInstances, function (key, value) {
 			  var seconds = (parseInt(value) / 1000);
-			  var minutes = (seconds / 60);
-			  if(parseInt(minutes)>0){
+			  //var minutes = (seconds / 60);
+			  //if(parseInt(minutes)>0){
 		      valuesArray.push({
 					label: key,
-					value: parseInt(minutes)
+					value: parseInt(seconds)
 				});
-			 }	
+			 //}	
 		});
 		
 		var array = {
@@ -80,7 +85,7 @@ function createAvgProcessCompTimeChart(data)
       chart.xAxis.showMaxMin(false);
       chart.yAxis.showMaxMin(false);
       chart.xAxis.axisLabel('Processes');
-      chart.yAxis.axisLabel('Time (mins)');
+      chart.yAxis.axisLabel('Time (seconds)');
 	d3.select('#chart2 svg')
       .datum(data)
 	  .transition().duration(500)
@@ -90,11 +95,14 @@ function createAvgProcessCompTimeChart(data)
 	});
 }
 </script>
-<div class="io-dashlet io-dashlet5">
+</head>	
+<body>
+<div id="processdashlet5" class="io-dashlet io-dashlet5">
 		<a class="io-dashlet-heading"> 
-		<!--<fmt:message key="com_intalio_bpms_dashboard_discrete_bar" />-->This is new heading</a>
+		Average Completion Time Of A Process</a>
 		<div id="chart2" style="height:85%;padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
-</div>
-
+	</div>
+</body>
+</html>

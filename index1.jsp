@@ -9,13 +9,21 @@
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script type="text/javascript" src="js/lib/jquery.dashboard.min.js"></script>
     <script type="text/javascript" src="js/lib/themeroller.js"></script>
-    <style>
-    #dialog label, #dialog input { display:block; }
-    #dialog label { margin-top: 0.5em; }
-    #dialog input, #dialog textarea { width: 95%; }
-    #tabs { margin-top: 1em; }
-    #tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
-    </style>
+    <link href="style/plugin/nv.d3.css" rel="stylesheet" type="text/css">
+    <script src="scripts/plugin/d3.v2.js"></script>
+    <script src="scripts/plugin/nv.d3.js"></script>
+    <script src="scripts/plugin/tooltip.js"></script>
+    <script src="scripts/plugin/utils.js"></script>
+    <script src="scripts/plugin/axis.js"></script>
+    <script src="scripts/plugin/discreteBar.js"></script>
+    <script src="scripts/plugin/discreteBarChart.js"></script>
+    <script src="scripts/plugin/multiBar.js"></script>
+    <script src="scripts/plugin/multiBarChart.js"></script>
+    <script src="scripts/plugin/legend.js"></script>
+    <script src="scripts/plugin/scatter.js"></script>
+    <script src="scripts/plugin/line.js"></script>
+    <script src="scripts/plugin/multiBarHorizontal.js"></script>
+    <script src="scripts/plugin/multiBarHorizontalChart.js"></script>
     <script>
     $(function() {
     	//Initialize the tabCounter value based on last counter.
