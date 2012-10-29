@@ -4,7 +4,7 @@
   "layout": "layout2",
   "data" : [
     {
-      "title" : "Average Completion Time Of A Process",
+      "title" : "Average Completion Time",
       "id" : "widget1",
       "column" : "first",
       "open" : true,
