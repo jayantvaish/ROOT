@@ -25,6 +25,11 @@
         <script src="scripts/plugin/line.js"></script>
         <script src="scripts/plugin/multiBarHorizontal.js"></script>
         <script src="scripts/plugin/multiBarHorizontalChart.js"></script>
+        <script src="scripts/plugin/historicalBar.js"></script>
+        <script src="scripts/plugin/linePlusBarChart.js"></script>
+        <script type="text/javascript" src="scripts/plugin/jquery.dataTables.js"></script>
+        <link rel="stylesheet" type="text/css" href="style/plugin/jquery.dataTables.css"/>
+        <script type="text/javascript" language="javascript" src="scripts/plugin/jquery-dateFormat.js"></script>
         <script type="text/javascript">
 	    var startId = 100;
 	    var currentTab;

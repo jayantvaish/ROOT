@@ -6,7 +6,7 @@
       "id" : "cat-2-01",
       "title" : "User-wise Pending/Claimed task count",
       "description" : "User-wise Pending/Claimed task count",
-      "creator" : "",
+      "creator" : "Intalio Inc",
       "url" : "widgets/user_task_count.jsp",
       "image": ""
     }

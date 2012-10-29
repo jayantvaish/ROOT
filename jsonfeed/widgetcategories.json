@@ -5,7 +5,7 @@
     {
       "id":1,
       "title" : "Process Category",
-      "amount" : 2,
+      "amount" : 3,
       "url" : "jsonfeed/category1_widgets.json"
     },
     {
@@ -17,7 +17,7 @@
     {
       "id":3,
       "title" : "Others",
-      "amount": 0,
+      "amount": 1,
       "url" : "jsonfeed/category3_widgets.json"
     }
   ]

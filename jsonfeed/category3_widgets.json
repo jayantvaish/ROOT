@@ -1,6 +1,15 @@
 {
 "result" :
   {
-  "data" : []
+  "data" : [
+	{
+      "id" : "cat-3-01",
+      "title" : "Vacation Summary",
+      "description" : "List of users currently on vacation.",
+      "creator" : "Intalio Inc",
+      "url" : "widgets/vacation_summary.jsp",
+      "image": ""
+    }
+	]
   }
 } 

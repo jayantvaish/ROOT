@@ -97,9 +97,7 @@ function createAvgProcessCompTimeChart(data)
 </script>
 </head>	
 <body>
-<div id="processdashlet5" class="io-dashlet io-dashlet5">
-		<a class="io-dashlet-heading"> 
-		Average Completion Time Of A Process</a>
+<div id="processdashlet5">
 		<div id="chart2" style="height:85%;padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>

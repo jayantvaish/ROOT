@@ -115,10 +115,8 @@ function createUserwiseTaskGraph(data)
 </script>
 </head>        
 <body>
-       <div id="taskdashlet3" class="io-dashlet io-dashlet3" style="display:block">
-		<a class="io-dashlet-heading"> 
-		User-wise Pending/Claimed task count</a>
-		<div id="chart4" style="height:85%;padding-top:5%" >
+       <div id="taskdashlet3">
+		<div id="chart4" style="position:relative; margin-left:5px">
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>

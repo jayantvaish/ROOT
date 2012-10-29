@@ -139,8 +139,7 @@ function createMultiBarChartData(data)
 </script>
 </head>	
 <body>
-<div id="processdashlet4" class="io-dashlet io-dashlet4">
-		<a class="io-dashlet-heading">Processes-Instances Status Count</a>
+<div id="processdashlet4">
 		<div id="chart1" style="height:85%;padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
