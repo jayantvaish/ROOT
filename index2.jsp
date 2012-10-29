@@ -4,10 +4,10 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>Intalio | BPMS</title>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"
+        <link rel="stylesheet" href="style/jquery-ui-1.9.0.css"
         />
-        <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-        <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+        <script src="scripts/lib/jquery-1.8.2.js"></script>
+        <script src="scripts/lib/jquery-ui.js"></script>
         <script type="text/javascript" src="js/lib/jquery.dashboard.min.js"></script>
         <script type="text/javascript" src="js/lib/themeroller.js"></script>
         <link href="style/plugin/nv.d3.css" rel="stylesheet" type="text/css">
@@ -26,65 +26,9 @@
         <script src="scripts/plugin/multiBarHorizontal.js"></script>
         <script src="scripts/plugin/multiBarHorizontalChart.js"></script>
         <script type="text/javascript">
-            function addNewDashboard(id) {
-                var dashboard1 = $('#' + id).dashboard({
-                    layoutClass: 'layout',
-                    json_data: {
-                        url: "jsonfeed/mywidgets.json"
-                    },
-                    addWidgetSettings: {
-                        widgetDirectoryUrl: "jsonfeed/widgetcategories.json"
-                    },
-                    layouts: [{
-                        title: "Layout1",
-                        id: "layout1",
-                        image: "layouts/layout1.png",
-                        classname: 'layout-a'
-                    }, {
-                        title: "Layout2",
-                        id: "layout2",
-                        image: "layouts/layout2.png",
-                        classname: 'layout-aa'
-                    }, {
-                        title: "Layout3",
-                        id: "layout3",
-                        image: "layouts/layout3.png",
-                        classname: 'layout-ba'
-                    }, {
-                        title: "Layout4",
-                        id: "layout4",
-                        image: "layouts/layout4.png",
-                        classname: 'layout-ab'
-                    }, {
-                        title: "Layout5",
-                        id: "layout5",
-                        image: "layouts/layout5.png",
-                        classname: 'layout-aaa'
-                    }]
-
-                }); // end dashboard call
-
-
-                var startId = 100;
-
-                // binding for a widgets is added to the dashboard
-                dashboard1.element.live('dashboardAddWidget', function (e, obj) {
-                    var widget = obj.widget;
-
-                    dashboard1.addWidget({
-                        "id": startId++,
-                        "title": widget.title,
-                        "url": widget.url,
-                        "metadata": widget.metadata
-                    }, dashboard1.element.find('.column:first'));
-                });
-
-
-                dashboard1.init();
-                dashboardManager.addDashboard(dashboard1);
-
-            }
-
+	    var startId = 100;
+	    var currentTab;
+	    var tabCounter = 1;
             // DashboardManager which contains the dashboards
             var dashboardManager = function () {
                 var dashboards = new Array();
@@ -95,6 +39,7 @@
 
                 function getDashboard(id) {
                     var r;
+                    alert("dashboards.length: " + dashboards.length);
                     for (i = 0; i < dashboards.length; i++) {
                         if (dashboards[i].element.attr("id") == id) {
                             r = dashboards[i];
@@ -112,9 +57,8 @@
             }();
 
 
-            $(function () {
-                var tabCounter = 1;
-                var currentTab;
+            $(function () {            
+                
                 // load the templates
                 $('body').append('<div id="templates"></div>');
                 $("#templates").hide();
@@ -213,6 +157,66 @@
                 });
 
             });
+            
+            
+            function addNewDashboard(id) {
+                var dashboard1 = $('#' + id).dashboard({
+                    layoutClass: 'layout',
+                    json_data: {
+                        url: "jsonfeed/mywidgets.json"
+                    },
+                    addWidgetSettings: {
+                        widgetDirectoryUrl: "jsonfeed/widgetcategories.json"
+                    },
+                    layouts: [{
+                        title: "Layout1",
+                        id: "layout1",
+                        image: "layouts/layout1.png",
+                        classname: 'layout-a'
+                    }, {
+                        title: "Layout2",
+                        id: "layout2",
+                        image: "layouts/layout2.png",
+                        classname: 'layout-aa'
+                    }, {
+                        title: "Layout3",
+                        id: "layout3",
+                        image: "layouts/layout3.png",
+                        classname: 'layout-ba'
+                    }, {
+                        title: "Layout4",
+                        id: "layout4",
+                        image: "layouts/layout4.png",
+                        classname: 'layout-ab'
+                    }, {
+                        title: "Layout5",
+                        id: "layout5",
+                        image: "layouts/layout5.png",
+                        classname: 'layout-aaa'
+                    }]
+
+                }); // end dashboard call
+
+
+                
+
+                // binding for a widgets is added to the dashboard
+                dashboard1.element.live('dashboardAddWidget', function (e, obj) {
+                    var widget = obj.widget;
+		    alert("Adding widget id: " + startId);
+                    dashboard1.addWidget({
+                        "id": startId++,
+                        "title": widget.title,
+                        "url": widget.url,
+                        "metadata": widget.metadata
+                    }, dashboard1.element.find('.column:first'));
+                });
+
+
+                dashboard1.init();
+                dashboardManager.addDashboard(dashboard1);
+
+            }
         </script>
         <link rel="stylesheet" type="text/css" href="themes/default/dashboardui.css"
         />
