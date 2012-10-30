@@ -2,28 +2,6 @@
 "result" :
   {
   "layout": "layout2",
-  "data" : [
-    {
-      "title" : "Average Completion Time",
-      "id" : "widget1",
-      "column" : "first",
-      "open" : true,
-      "url" : "widgets/avg_completion_time.jsp"
-    },
-    {
-      "title" : "Processes-Instances Status Count",
-      "column" : "second",
-      "id" : "widget2",
-      "url" : "widgets/instance_status_cnt.jsp",
-      "open" : true
-    },
-    {
-      "title" : "User-wise Pending/Claimed task count",
-      "id" : "widget3",
-      "column" : "second",
-      "url" : "widgets/user_task_count.jsp",
-      "open" : true
-    }
-  ]
+  "data" : []
   }
 }
