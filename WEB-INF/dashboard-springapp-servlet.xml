@@ -4,6 +4,7 @@
 <beans>
 	<import resource="file:${org.intalio.tempo.configDirectory}/tempo-ui-fw.xml"/>
         <import resource="file:${org.intalio.tempo.configDirectory}/tempo-ui-fw-servlet.xml"/>
+    <import resource="file:${org.intalio.tempo.configDirectory}/dashboard-template-beans.xml"/>
 	<!--<import resource="file:${com.intalio.bpms.configDirectory}/console/console-config.xml"/>
 	<import resource="file:${com.intalio.bpms.configDirectory}/console/console-springapp-servlet.xml"/>-->
 	<bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" />
@@ -13,10 +14,23 @@
 		<property name="mappings">
 			<props>
 				<prop key="/data.json">dashboardDataController</prop>
+				<prop key="/dsState.json">dashboardStateController</prop>
 			</props>
 		</property>
 	</bean>
 	
+	
+ <bean id="dashboard.daoFactory" class="com.intalio.bpms.dashboard.dao.JPADashboardStateConnectionFactory" parent="abs.AbstractJPAConnectionFactory">
+ </bean>
+
+ 
+  <bean id="dashboardStateController"
+          class="com.intalio.bpms.dashboard.data.controller.DashboardStateController">
+          <constructor-arg>
+          	<ref bean="dashboard.daoFactory"/>
+          </constructor-arg>
+  </bean>
+  
 	<bean id="dashboardDataController"
           class="com.intalio.bpms.dashboard.data.controller.DashboardDataController">
           <constructor-arg>
