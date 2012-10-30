@@ -224,17 +224,21 @@ $(function () {
 
 
         $('.addwidget').live('click', function () {
+	    //On a single click dashboardAddWidget event should be fired only once.
+	    var eventCount = 0;
             if (currentDashboard != null) {
                 currentDashboard.element.live('dashboardAddWidget', function (e, obj) {
-                    var widget = obj.widget;
-                    alert("Adding widget id: " + startId);
+		  if(eventCount == 0){
+		    eventCount++;
+		    var widget = obj.widget;
                     currentDashboard.addWidget({
                         "id": startId++,
                         "title": widget.title,
                         "url": widget.url,
                         "metadata": widget.metadata
                     }, currentDashboard.element.find('.column:first'));
-                    return false;
+		  }
+                  return false;
                 });
             }
             return false;
