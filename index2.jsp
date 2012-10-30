@@ -33,6 +33,7 @@
         <script type="text/javascript">
 	    var startId = 100;
 	    var currentTab;
+	    var currentDashboard;
 	    var tabCounter = 1;
             // DashboardManager which contains the dashboards
             var dashboardManager = function () {
@@ -44,7 +45,7 @@
 
                 function getDashboard(id) {
                     var r;
-                    alert("dashboards.length: " + dashboards.length);
+//                    alert("dashboards.length: " + dashboards.length);
                     for (i = 0; i < dashboards.length; i++) {
                         if (dashboards[i].element.attr("id") == id) {
                             r = dashboards[i];
@@ -72,6 +73,7 @@
                 $('#tabs').tabs({
                     select: function (evt, ui) {
                         currentTab = $(ui.panel).attr('id');
+                        currentDashboard = dashboardManager.getDashboard(currentTab);
                     }
                 });
 
@@ -96,6 +98,24 @@
 
                         return false;
                     });
+                    
+		      
+		    $('.addwidget').live('click', function(){
+			if(currentDashboard != null){
+			    currentDashboard.element.live('dashboardAddWidget', function (e, obj) {
+				  var widget = obj.widget;
+				  alert("Adding widget id: " + startId);
+				  currentDashboard.addWidget({
+				      "id": startId++,
+				      "title": widget.title,
+				      "url": widget.url,
+				      "metadata": widget.metadata
+				  }, currentDashboard.element.find('.column:first'));
+			      return false;
+			    });
+			}
+			return false;
+		    });
 
                 }
 
@@ -206,16 +226,16 @@
                 
 
                 // binding for a widgets is added to the dashboard
-                dashboard1.element.live('dashboardAddWidget', function (e, obj) {
-                    var widget = obj.widget;
-		    alert("Adding widget id: " + startId);
-                    dashboard1.addWidget({
-                        "id": startId++,
-                        "title": widget.title,
-                        "url": widget.url,
-                        "metadata": widget.metadata
-                    }, dashboard1.element.find('.column:first'));
-                });
+//                dashboard1.element.live('dashboardAddWidget', function (e, obj) {
+//                    var widget = obj.widget;
+//		    alert("Adding widget id: " + startId);
+//                    dashboard1.addWidget({
+//                        "id": startId++,
+//                        "title": widget.title,
+//                        "url": widget.url,
+//                        "metadata": widget.metadata
+//                    }, dashboard1.element.find('.column:first'));
+//                });
 
 
                 dashboard1.init();
