@@ -116,7 +116,7 @@ function createWsResTimeChart(data)
 </head>	
 <body>
 <div id="processdashlet6">
-		<div id="chart3" style="padding-top:1%" >
+		<div id="chart3" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 </div>

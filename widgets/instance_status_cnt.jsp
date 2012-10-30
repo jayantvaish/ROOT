@@ -140,7 +140,7 @@ function createMultiBarChartData(data)
 </head>	
 <body>
 <div id="processdashlet4">
-		<div id="chart1" style="height:85%;padding-top:1%" >
+		<div id="chart1" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>

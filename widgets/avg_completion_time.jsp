@@ -98,7 +98,7 @@ function createAvgProcessCompTimeChart(data)
 </head>	
 <body>
 <div id="processdashlet5">
-		<div id="chart2" style="height:85%;padding-top:1%" >
+		<div id="chart2" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>
