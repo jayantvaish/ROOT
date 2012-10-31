@@ -40,7 +40,7 @@ function addNewDashboard(id, jsonData) {
         layoutClass: 'layout',
         json_data: jsonData,
         addWidgetSettings: {
-            widgetDirectoryUrl: "jsonfeed/widgetcategories.json"
+            widgetDirectoryUrl: "jsonfeed/widgetcategories"
         },
         layouts: [{
             title: "Layout1",
@@ -310,24 +310,59 @@ $(function () {
     });
 
     $(document).ready(function() {
-      var url = 'userStateData.json';
+      var url = 'dsState.json';
+       var data = {
+                action: "saveState",
+                jsonString: '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
+
+            }
+            
+            
+            
+            
+//	$.ajax({
+//	    url: url,
+//	    cache:false,
+//	    async: true,
+//	    dataType: 'json',
+//	    data: data,
+//	    error:function(e){
+//		    //alert("Error" + e);
+//	    },
+//	    success: function (data) {	
+//		alert("data saved");
+//	    }
+//    });
+      
+
+	
+	//
+	      var data1 = {
+                action: "getState"
+            }
+      //var url = 'userStateData';
 	$.ajax({
 	    url: url,
 	    cache:false,
 	    async: true,
 	    dataType: 'json',
+	    data: data1,
 	    error:function(e){
 		    //alert("Error" + e);
 	    },
-	    success: function (data) {	
+	    success: function (data) {
+	      alert("data received" + data.dsState);
 		var tabsArray = data.tabs;
-		for (var i = 0; i < tabsArray.length; i++) {
+//		for (var i = 0; i < tabsArray.length; i++) {
 		    //alert(tabsArray[i].info);
-		    addTab(tabsArray[i].info, tabsArray[i].tabName);
+//		    addTab(tabsArray[i].info, tabsArray[i].tabName);
 		    //alert(tabsArray[i].info);
-		}
+//		}
 	    }
     });
+	
+	//
+	
 });
 
 		

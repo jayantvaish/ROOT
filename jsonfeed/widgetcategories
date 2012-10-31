@@ -6,19 +6,19 @@
       "id":1,
       "title" : "Process Category",
       "amount" : 4,
-      "url" : "jsonfeed/category1_widgets.json"
+      "url" : "jsonfeed/category1_widgets"
     },
     {
       "id":2,
       "title" : "Task Category",
       "amount": 2,
-      "url" : "jsonfeed/category2_widgets.json"
+      "url" : "jsonfeed/category2_widgets"
     },
     {
       "id":3,
       "title" : "Others",
       "amount": 1,
-      "url" : "jsonfeed/category3_widgets.json"
+      "url" : "jsonfeed/category3_widgets"
     }
   ]
   }

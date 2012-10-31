@@ -20,7 +20,7 @@
 	</bean>
 	
 	
- <bean id="dashboard.daoFactory" class="com.intalio.bpms.dashboard.dao.JPADashboardStateConnectionFactory" parent="abs.AbstractJPAConnectionFactory">
+ <bean id="dashboard.daoFactory" class="com.intalio.bpms.dashboard.dao.JPADashboardStateConnectionFactory" parent="dashboard.AbstractJPAConnectionFactory">
  </bean>
 
  
