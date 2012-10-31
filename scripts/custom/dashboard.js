@@ -33,6 +33,13 @@ var tabCounter = 1;
 var currentTab;
 var startId = 100;
 var currentDashboard;
+var defaultData = {
+"result" :
+  {
+  "layout": "layout2",
+  "data" : []
+  }
+}
 
 function addNewDashboard(id, jsonData) {
 
@@ -260,7 +267,7 @@ $(function () {
         resizable: false,
         buttons: {
             Add: function () {
-                addTab(null, tabTitle.val());
+                addTab(defaultData, tabTitle.val());
                 $(this).dialog("close");
             }
         },
@@ -272,7 +279,7 @@ $(function () {
 
     // addTab form: calls addTab function on submit and closes the dialog
     var form = dialog.find("form").submit(function (event) {
-        addTab(null, tabTitle.val());
+        addTab(defaultData, tabTitle.val());
         dialog.dialog("close");
         event.preventDefault();
     });
