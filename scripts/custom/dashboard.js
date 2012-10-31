@@ -316,76 +316,72 @@ $(function () {
         disableEnableLinks();
     });
 
-    $(document).ready(function() {
-      var url = 'dsState.json';
-       var data = {
-                action: "saveState",
-                jsonString: '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
+    $(document).ready(function () {
+        var url = 'dsState.json';
+        var data = {
+            action: "saveState",
+            jsonString: '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
 
-            }
-            
-            
-            
-            
-//	$.ajax({
-//	    url: url,
-//	    cache:false,
-//	    async: true,
-//	    dataType: 'json',
-//	    data: data,
-//	    error:function(e){
-//		    //alert("Error" + e);
-//	    },
-//	    success: function (data) {	
-//		alert("data saved");
-//	    }
-//    });
-      
+        }
+        
+        //	$.ajax({
+        //	    url: url,
+        //	    cache:false,
+        //	    async: true,
+        //	    dataType: 'json',
+        //	    data: data,
+        //	    error:function(e){
+        //		    //alert("Error" + e);
+        //	    },
+        //	    success: function (data) {	
+        //		alert("data saved");
+        //	    }
+        //    });
 
-	
-	//
-	      var data1 = {
-                action: "getState"
+
+
+        //
+        var data1 = {
+            action: "getState"
+        }
+        //var url = 'userStateData';
+        $.ajax({
+            url: url,
+            cache: false,
+            async: true,
+            dataType: 'json',
+            data: data1,
+            error: function (e) {
+                //alert("Error" + e);
+            },
+            success: function (data) {
+                //alert("data received" + data.dsState);
+                var tabsArray = data.tabs;
+                //		for (var i = 0; i < tabsArray.length; i++) {
+                //alert(tabsArray[i].info);
+                //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
+                //alert(tabsArray[i].info);
+                //		}
             }
-      //var url = 'userStateData';
-	$.ajax({
-	    url: url,
-	    cache:false,
-	    async: true,
-	    dataType: 'json',
-	    data: data1,
-	    error:function(e){
-		    //alert("Error" + e);
-	    },
-	    success: function (data) {
-	      alert("data received" + data.dsState);
-		var tabsArray = data.tabs;
-//		for (var i = 0; i < tabsArray.length; i++) {
-		    //alert(tabsArray[i].info);
-//		    addTab(tabsArray[i].info, tabsArray[i].tabName);
-		    //alert(tabsArray[i].info);
-//		}
-	    }
+        });
+
+        //
+	disableEnableLinks();
+
     });
-	
-	//
-	
-});
 
 		
 });
-function disableEnableLinks()
-{
-		var count = $("#tablist li").length;
-        if(parseInt(count)!=0)
-        {
-			$('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
-			$('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
-			
-		}
-		else
-		{
-			$('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href"); 
-			$('.dmeditLayout').fadeTo("fast", .5).removeAttr("href"); 
-		}
+
+function disableEnableLinks() {
+    var count = $("#tablist li").length;
+    alert("count is: " + count);
+    if (parseInt(count) != 0) {
+        $('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
+        $('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
+
+    } else {
+        $('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href");
+        $('.dmeditLayout').fadeTo("fast", .5).removeAttr("href");
+    }
 }
