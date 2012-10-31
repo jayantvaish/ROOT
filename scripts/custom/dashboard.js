@@ -113,8 +113,6 @@ var dashboardManager = function () {
 
 $(function () {
 	
-	$('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href"); 
-	$('.dmeditLayout').fadeTo("fast", .5).removeAttr("href"); 
     $("#radioTab").buttonset();
     $('[for=radio1]').click(function () {
         document.location.href = './monitoring/processes.htm';
@@ -293,9 +291,7 @@ $(function () {
         tabCounter++;
         //Select the new tab added.
         $('#tabs').tabs('select', '#' + id + '');
-        
-		$('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
-		$('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
+        disableEnableLinks();
     }
 
     // addtab just opens the dialog
@@ -310,6 +306,7 @@ $(function () {
         var panelId = $(this).closest("li").remove().attr("aria-controls");
         $("#" + panelId).remove();
         tabs.tabs("refresh");
+        disableEnableLinks();
     });
 
     $(document).ready(function() {
@@ -333,5 +330,20 @@ $(function () {
     });
 });
 
+		
 });
-
+function disableEnableLinks()
+{
+		var count = $("#tablist li").length;
+        if(parseInt(count)!=0)
+        {
+			$('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
+			$('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
+			
+		}
+		else
+		{
+			$('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href"); 
+			$('.dmeditLayout').fadeTo("fast", .5).removeAttr("href"); 
+		}
+}
