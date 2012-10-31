@@ -33,6 +33,7 @@ var tabCounter = 1;
 var currentTab;
 var startId = 100;
 var currentDashboard;
+var dashboardStateUrl = 'dsState.json';
 var defaultData = {
 "result" :
   {
@@ -317,57 +318,12 @@ $(function () {
     });
 
     $(document).ready(function () {
-        var url = 'dsState.json';
-        var data = {
-            action: "saveState",
-            jsonString: '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
-
-        }
-        
-        //	$.ajax({
-        //	    url: url,
-        //	    cache:false,
-        //	    async: true,
-        //	    dataType: 'json',
-        //	    data: data,
-        //	    error:function(e){
-        //		    //alert("Error" + e);
-        //	    },
-        //	    success: function (data) {	
-        //		alert("data saved");
-        //	    }
-        //    });
-
-
-
-        //
-        var data1 = {
-            action: "getState"
-        }
-        //var url = 'userStateData';
-        $.ajax({
-            url: url,
-            cache: false,
-            async: true,
-            dataType: 'json',
-            data: data1,
-            error: function (e) {
-                //alert("Error" + e);
-            },
-            success: function (data) {
-                //alert("data received" + data.dsState);
-                var tabsArray = data.tabs;
-                //		for (var i = 0; i < tabsArray.length; i++) {
-                //alert(tabsArray[i].info);
-                //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
-                //alert(tabsArray[i].info);
-                //		}
-            }
-        });
-
-        //
+        var jsonString = '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
+	
+	//saveDashboardStateData(jsonString);
+	getDashboardStateData();
+	
 	disableEnableLinks();
-
     });
 
 		
@@ -384,4 +340,50 @@ function disableEnableLinks() {
         $('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href");
         $('.dmeditLayout').fadeTo("fast", .5).removeAttr("href");
     }
+}
+
+function getDashboardStateData(){
+  $.ajax({
+      url: dashboardStateUrl,
+      cache: false,
+      async: true,
+      dataType: 'json',
+      data: {
+         action: "getState"
+      },
+      error: function (e) {
+	  //alert("Error" + e);
+      },
+      success: function (data) {
+	  var stateDataInString = data.dsState.ds_state;
+	  alert("stateDataInString: " + stateDataInString);
+	  //alert("data received" + dataInString);
+	  //var tabsArray = data.tabs;
+	  //		for (var i = 0; i < tabsArray.length; i++) {
+	  //alert(tabsArray[i].info);
+	  //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
+	  //alert(tabsArray[i].info);
+	  //		}
+      }
+  });  
+}
+
+
+function saveDashboardStateData(jsonString){
+  $.ajax({
+      url: dashboardStateUrl,
+      cache:false,
+      async: true,
+      dataType: 'json',
+      data: {
+            action: "saveState",
+            jsonString: jsonString
+      },
+      error:function(e){
+  	    //alert("Error" + e);
+      },
+      success: function (data) {	
+  	alert("data saved");
+      }
+  });
 }
