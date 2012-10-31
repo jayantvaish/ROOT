@@ -28,14 +28,14 @@
                 <script type="text/javascript" src="scripts/plugin/line.js"></script>
                 <script type="text/javascript" src="scripts/plugin/multiBarHorizontal.js"></script>
                 <script type="text/javascript" src="scripts/plugin/multiBarHorizontalChart.js"></script>
+                <script type="text/javascript" src="scripts/plugin/pie.js"></script>
+				<script type="text/javascript" src="scripts/plugin/pieChart.js"></script>
                 <script type="text/javascript" src="scripts/custom/dashboard.js"></script>
-                <link class="include" rel="stylesheet" href="style/plugin/jquery-ui-1.9.0.css"
-                />
+                <link class="include" rel="stylesheet" href="style/plugin/jquery-ui-1.9.0.css"/>
                 <script src="scripts/plugin/historicalBar.js"></script>
                 <script src="scripts/plugin/linePlusBarChart.js"></script>
                 <script type="text/javascript" src="scripts/plugin/jquery.dataTables.js"></script>
-                <link rel="stylesheet" type="text/css" href="style/plugin/jquery.dataTables.css"
-                />
+                <link rel="stylesheet" type="text/css" href="style/plugin/jquery.dataTables.css"/>
                 <script type="text/javascript" language="javascript" src="scripts/plugin/jquery-dateFormat.js"></script>
                 <link class="include" rel="stylesheet" type="text/css" href="style/plugin/jquery.ui.theme.css">
                 <link class="include" rel="stylesheet" type="text/css" href="style/plugin/jquery.qtip.css">
@@ -75,15 +75,14 @@
 
                     </div>
                     <div class="tooltipContent" style="float:center;display:none;margin-left:-2px;margin-top:-2px;">
-                        <button id="btnHelp">&nbsp;&nbsp;
-                            <fmt:message key="com_intalio_bpms_dashboard_help" />&nbsp;&nbsp;</button>
-                        </br>
-                        </br>
+                        <button id="btnHelp">
+                            <fmt:message key="com_intalio_bpms_dashboard_help" /></button>
+                        </br></br>
                         <button id="btnLogout">
                             <fmt:message key="com_intalio_bpms_console_pageHeader_logout" />
                         </button>
                     </div>
-                    <div id="dialog" title="Tab data">
+                    <div id="dialog" title="Add Tab">
                         <form>
                             <fieldset class="ui-helper-reset">
                                 <label for="tab_title">

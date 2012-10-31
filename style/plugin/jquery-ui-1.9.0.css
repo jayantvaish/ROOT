@@ -339,7 +339,7 @@ body .ui-tooltip { border-width:1px; }
 .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
 .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
 .ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
-.ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.ui-icon-arrowrefresh-1-w { background-position: -112px -128px; }
 .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
 .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
 .ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }

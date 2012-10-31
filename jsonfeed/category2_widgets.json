@@ -9,6 +9,14 @@
       "creator" : "Intalio Inc",
       "url" : "widgets/user_task_count.jsp",
       "image": ""
+    },
+    {
+      "id" : "cat-2-02",
+      "title" : "Task Summary",
+      "description" : "Shows the task summary.",
+      "creator" : "Intalio Inc",
+      "url" : "widgets/task_summary.jsp",
+      "image": ""
     }
   ]
   }

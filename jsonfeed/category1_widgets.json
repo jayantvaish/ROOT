@@ -25,6 +25,14 @@
       "creator" : "Intalio Inc",
       "url" : "widgets/ws_response_time.jsp",
       "image": ""
+    },
+    {
+      "id" : "cat-1-04",
+      "title" : "Instances Summary",
+      "description" : "Instances Summary",
+      "creator" : "Intalio Inc",
+      "url" : "widgets/notifications.jsp",
+      "image": ""
     }
   ]
   }

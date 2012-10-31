@@ -17,7 +17,10 @@ function getData()
                           //alert("Error" + e);
                   },
                   success: function (data) {        
-                                                createUserwiseTaskGraph(data);
+                                                if(data.isConsoleAccessible == "true")
+						{
+							createUserwiseTaskGraph(data);
+						}  
                                            }
                 });
 }

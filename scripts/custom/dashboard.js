@@ -112,6 +112,9 @@ var dashboardManager = function () {
 }();
 
 $(function () {
+	
+	$('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href"); 
+	$('.dmeditLayout').fadeTo("fast", .5).removeAttr("href"); 
     $("#radioTab").buttonset();
     $('[for=radio1]').click(function () {
         document.location.href = './monitoring/processes.htm';
@@ -168,6 +171,10 @@ $(function () {
             //alert("Error" + e);
         },
         success: function (data) {
+			console.log("data"+data.currentUser);
+            if(data.currentUser == undefined || data.currentUser == null || $.trim(data.currentUser) =='' )
+			submitActionToURL('login.htm','logOut');
+            else
             $("#userProfile span").text(data.currentUser);
         }
 
@@ -257,9 +264,6 @@ $(function () {
             Add: function () {
                 addTab(null, tabTitle.val());
                 $(this).dialog("close");
-            },
-            Cancel: function () {
-                $(this).dialog("close");
             }
         },
         close: function () {
@@ -289,7 +293,9 @@ $(function () {
         tabCounter++;
         //Select the new tab added.
         $('#tabs').tabs('select', '#' + id + '');
-
+        
+		$('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
+		$('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
     }
 
     // addtab just opens the dialog
