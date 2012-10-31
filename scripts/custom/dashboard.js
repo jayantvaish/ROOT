@@ -34,13 +34,11 @@ var currentTab;
 var startId = 100;
 var currentDashboard;
 
-function addNewDashboard(id) {
+function addNewDashboard(id, jsonData) {
 
     var dashboard1 = $('#' + id).dashboard({
         layoutClass: 'layout',
-        json_data: {
-            url: "jsonfeed/mywidgets.json"
-        },
+        json_data: jsonData,
         addWidgetSettings: {
             widgetDirectoryUrl: "jsonfeed/widgetcategories.json"
         },
@@ -257,7 +255,7 @@ $(function () {
         resizable: false,
         buttons: {
             Add: function () {
-                addTab();
+                addTab(null, tabTitle.val());
                 $(this).dialog("close");
             },
             Cancel: function () {
@@ -272,20 +270,20 @@ $(function () {
 
     // addTab form: calls addTab function on submit and closes the dialog
     var form = dialog.find("form").submit(function (event) {
-        addTab();
+        addTab(null, tabTitle.val());
         dialog.dialog("close");
         event.preventDefault();
     });
 
     // actual addTab function: adds new tab using the input from the form above
-    function addTab() {
-        var label = tabTitle.val() || "Tab " + tabCounter,
+    function addTab(jsonData, tabName) {
+        var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
         tabs.find(".ui-tabs-nav").append(li);
         tabs.append("<div id='" + id + "' class='dashboard'><div class='layout'><div class='column first column-first'></div><div class='column second column-second'></div><div class='column third column-third'></div></div></div>");
-        addNewDashboard(id);
+        addNewDashboard(id, jsonData);
         tabs.tabs("refresh");
         //Increment the counter.
         tabCounter++;
@@ -308,4 +306,26 @@ $(function () {
         tabs.tabs("refresh");
     });
 
+    $(document).ready(function() {
+      var url = 'userStateData.json';
+	$.ajax({
+	    url: url,
+	    cache:false,
+	    async: true,
+	    dataType: 'json',
+	    error:function(e){
+		    //alert("Error" + e);
+	    },
+	    success: function (data) {	
+		var tabsArray = data.tabs;
+		for (var i = 0; i < tabsArray.length; i++) {
+		    //alert(tabsArray[i].info);
+		    addTab(tabsArray[i].info, tabsArray[i].tabName);
+		    //alert(tabsArray[i].info);
+		}
+	    }
+    });
 });
+
+});
+
