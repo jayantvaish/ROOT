@@ -342,15 +342,42 @@ $(function () {
         tabs.tabs("refresh");
         disableEnableLinks();
     });
-
+    
+    //This will execute on page load.
     $(document).ready(function () {
         var jsonString = '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
+	//var stateDataInJson = jQuery.parseJSON(jsonString);
+	//alert('stateDataInJson: ' + stateDataInJson);	
+	//alert('stateData: ' + JSON.stringify(stateDataInJson));
 	//jsonString = '';
 	//saveDashboardStateData(jsonString);
 	getDashboardStateData();
 	
 	
     });
+    
+    
+    JSON.stringify = JSON.stringify || function (obj) {
+	var t = typeof (obj);
+	if (t != "object" || obj === null) {
+	    // simple data type
+	    if (t == "string") obj = '"'+obj+'"';
+	    return String(obj);
+	}
+	else {
+	    // recurse array or object
+	    var n, v, json = [], arr = (obj && obj.constructor == Array);
+	    for (n in obj) {
+		v = obj[n]; t = typeof(v);
+		if (t == "string") v = '"'+v+'"';
+		else if (t == "object" && v !== null) v = JSON.stringify(v);
+		json.push((arr ? "" : '"' + n + '":') + String(v));
+	    }
+	    return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+	}
+    };
+
+    
 
 
     function getDashboardStateData(){
