@@ -33,7 +33,8 @@ var tabCounter = 1;
 var currentTab;
 var startId = 100;
 var currentDashboard;
-var istabExist = false; 
+var istabExist = false;
+var currentTabName;
 var dashboardStateUrl = 'dsState.json';
 var defaultData = {
 "result" :
@@ -209,6 +210,8 @@ $(function () {
     $('#tabs').tabs({
         select: function (evt, ui) {
             currentTab = $(ui.panel).attr('id');
+	    currentTabName = $(ui.panel).attr('name');
+	    //alert("currentTabName: " + currentTabName);
             currentDashboard = dashboardManager.getDashboard(currentTab);
         }
     });
@@ -268,12 +271,16 @@ $(function () {
 		  if(eventCount == 0){
 		    eventCount++;
 		    var widget = obj.widget;
-                    currentDashboard.addWidget({
+                    var widgetData = {
                         "id": startId++,
                         "title": widget.title,
                         "url": widget.url,
+			"column" : "first",
+			"open" : true,
                         "metadata": widget.metadata
-                    }, currentDashboard.element.find('.column:first'));
+                    }
+		    persistWidget(widgetData);
+		    currentDashboard.addWidget(widgetData, currentDashboard.element.find('.column:first'));
 		  }
                   return false;
                 });
@@ -319,7 +326,7 @@ $(function () {
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 
         tabs.find(".ui-tabs-nav").append(li);
-        tabs.append("<div id='" + id + "' class='dashboard'><div class='layout'><div class='column first column-first'></div><div class='column second column-second'></div><div class='column third column-third'></div></div></div>");
+        tabs.append("<div id='" + id + "' class='dashboard' name='" + label + "'><div class='layout'><div class='column first column-first'></div><div class='column second column-second'></div><div class='column third column-third'></div></div></div>");
         addNewDashboard(id, jsonData);
         tabs.tabs("refresh");
         //Increment the counter.
@@ -363,6 +370,24 @@ $(function () {
 	
 	
     });
+    
+    function persistWidget(widgetData){
+      alert("Adding widget: " + JSON.stringify(widgetData)); 
+      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	var stateDataInString = data.dsState.ds_state;
+	var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	var tabsArray = stateDataInJson.tabs;	    
+	for (var i = 0; i < tabsArray.length; i++) {
+	    alert("iterating " + i);
+	    if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
+	      tabsArray[i].info.result.data.push(widgetData);
+	      alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
+	      saveDashboardStateData(JSON.stringify(stateDataInJson));
+	      break;
+	    }
+	}
+      });	    
+    }
     
     function removeTab(tabName){
       alert("Ramoving tab: " + tabName); 
@@ -461,6 +486,15 @@ $(function () {
 		if(tabsArray[i] != null){
 		  alert("going to add tab");
 		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
+		  
+		  //Initialize the startId.
+		  var widgetsData = tabsArray[i].info.result.data;
+		  for(var i = 0; i < widgetsData.length; i++){
+		    if(widgetsData != null && widgetsData[i].id >= startId){
+		       startId = widgetsData[i].id;
+		       startId++;
+		    }
+		  }
 		}
 	    }
 	  }
