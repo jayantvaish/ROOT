@@ -486,8 +486,12 @@ $(function () {
 		if(tabsArray[i] != null){
 		  alert("going to add tab");
 		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
-		  
-		  //Initialize the startId.
+		}
+	    }
+	    
+	    //Initialize the startId.  
+	    for (var i = 0; i < tabsArray.length; i++) {
+		if(tabsArray[i] != null){
 		  var widgetsData = tabsArray[i].info.result.data;
 		  for(var i = 0; i < widgetsData.length; i++){
 		    if(widgetsData != null && widgetsData[i].id >= startId){
