@@ -33,6 +33,7 @@ var tabCounter = 1;
 var currentTab;
 var startId = 100;
 var currentDashboard;
+var istabExist = false; 
 var dashboardStateUrl = 'dsState.json';
 var defaultData = {
 "result" :
@@ -293,7 +294,7 @@ $(function () {
         resizable: false,
         buttons: {
             Add: function () {
-                addTab(defaultData, tabTitle.val());
+                addTab(defaultData, tabTitle.val(), istabExist);
                 $(this).dialog("close");
             }
         },
@@ -305,13 +306,13 @@ $(function () {
 
     // addTab form: calls addTab function on submit and closes the dialog
     var form = dialog.find("form").submit(function (event) {
-        addTab(defaultData, tabTitle.val());
+        addTab(defaultData, tabTitle.val(), istabExist);
         dialog.dialog("close");
         event.preventDefault();
     });
 
     // actual addTab function: adds new tab using the input from the form above
-    function addTab(jsonData, tabName) {
+    function addTab(jsonData, tabName, istabExist) {
       alert("Adding tab");
         var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
@@ -325,6 +326,10 @@ $(function () {
         tabCounter++;
         //Select the new tab added.
         $('#tabs').tabs('select', '#' + id + '');
+	alert("istabExist: " + istabExist);
+	if(!istabExist){
+	    persistTab(label);
+	}
         disableEnableLinks();
     }
 
@@ -355,6 +360,46 @@ $(function () {
 	
 	
     });
+    
+    function persistTab(tabName){
+      alert("Adding tab tabName: " + tabName);
+      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	  var newTab = {
+	      "tabName" : tabName,
+	      "info" : defaultData
+	    };
+	  var stateDataInString = data.dsState.ds_state;
+	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
+	    var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	    var tabsArray = stateDataInJson.tabs;	    
+	    tabsArray.push(newTab);
+	    alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
+	    saveDashboardStateData(JSON.stringify(stateDataInJson));
+	  } else {
+	    saveDashboardStateData(JSON.stringify({"tabs" :[newTab]}));
+	  }
+      });
+    }
+    
+    function saveDashboardStateData(jsonString){
+      $.ajax({
+	  url: dashboardStateUrl,
+	  cache:false,
+	  async: true,
+	  dataType: 'json',
+	  data: {
+		action: "saveState",
+		jsonString: jsonString
+	  },
+	  error:function(e){
+		//alert("Error" + e);
+	  },
+	  success: function (data) {	
+	    alert("data saved");
+	  }
+      });
+    }
+
     
     
     JSON.stringify = JSON.stringify || function (obj) {
@@ -392,7 +437,7 @@ $(function () {
 	    alert("tabsArray.length: " + tabsArray.length);
 	    for (var i = 0; i < tabsArray.length; i++) {
 		alert("going to add tab");
-		addTab(tabsArray[i].info, tabsArray[i].tabName);
+		addTab(tabsArray[i].info, tabsArray[i].tabName, true);
 	    }
 	  }
 	  disableEnableLinks();
@@ -416,21 +461,4 @@ function disableEnableLinks() {
 
 
 
-function saveDashboardStateData(jsonString){
-  $.ajax({
-      url: dashboardStateUrl,
-      cache:false,
-      async: true,
-      dataType: 'json',
-      data: {
-            action: "saveState",
-            jsonString: jsonString
-      },
-      error:function(e){
-  	    //alert("Error" + e);
-      },
-      success: function (data) {	
-  	alert("data saved");
-      }
-  });
-}
+
