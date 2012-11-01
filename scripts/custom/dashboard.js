@@ -312,6 +312,7 @@ $(function () {
 
     // actual addTab function: adds new tab using the input from the form above
     function addTab(jsonData, tabName) {
+      alert("Adding tab");
         var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
@@ -344,14 +345,33 @@ $(function () {
 
     $(document).ready(function () {
         var jsonString = '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
-	
+	//jsonString = '';
 	//saveDashboardStateData(jsonString);
 	getDashboardStateData();
 	
-	disableEnableLinks();
+	
     });
 
-		
+
+    function getDashboardStateData(){
+      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	  var stateDataInString = data.dsState.ds_state;
+	  alert("stateDataInString: " + stateDataInString);
+	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
+	    var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	    alert("stateDataInJson: " + stateDataInJson);	  
+	    //alert(".serialize(): " + stateDataInJson.tabs[0].tabName);	      
+	    var tabsArray = stateDataInJson.tabs;	    
+	    alert("tabsArray.length: " + tabsArray.length);
+	    for (var i = 0; i < tabsArray.length; i++) {
+		alert("going to add tab");
+		addTab(tabsArray[i].info, tabsArray[i].tabName);
+	    }
+	  }
+	  disableEnableLinks();
+      });
+    }
+
 });
 
 function disableEnableLinks() {
@@ -367,22 +387,6 @@ function disableEnableLinks() {
     }
 }
 
-function getDashboardStateData(){
-  $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
-      var stateDataInString = data.dsState.ds_state;
-      alert("stateDataInString: " + stateDataInString);
-      var stateDataInJson = jQuery.parseJSON(stateDataInString);
-      alert("stateDataInJson: " + stateDataInJson);
-      alert(".serialize(): " + stateDataInJson.tabs[0].tabName);
-      
-      //var tabsArray = data.tabs;
-      //		for (var i = 0; i < tabsArray.length; i++) {
-      //alert(tabsArray[i].info);
-      //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
-      //alert(tabsArray[i].info);
-      //		}    
-  });
-}
 
 
 function saveDashboardStateData(jsonString){
