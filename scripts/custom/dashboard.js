@@ -234,6 +234,31 @@ $(function () {
         });
 
 
+	$('.column').live('click', function () {
+	  alert("column");
+	    if (currentDashboard != null) {
+		currentDashboard.element.live('dashboardStateChange',function(e, obj){
+		  alert("Layout  Changed by widgetDeleted.... " + currentDashboard.serialize() + " ," + obj);
+		  return false;
+		});
+            }
+            return false;
+        });
+
+	
+        $('.layoutchoice').live('click', function () {
+	  alert("layoutchoice");
+	    var eventCount = 0;
+            if (currentDashboard != null) {
+		currentDashboard.element.live('dashboardLayoutChanged',function(e, obj){
+		alert("Layout  Changed by dashboardLayoutChanged.... " + currentDashboard.serialize() + " ," + obj);
+		return false;
+		});
+            }
+            return false;
+        });
+
+	
         $('.addwidget').live('click', function () {
 	    //On a single click dashboardAddWidget event should be fired only once.
 	    var eventCount = 0;
@@ -343,29 +368,20 @@ function disableEnableLinks() {
 }
 
 function getDashboardStateData(){
-  $.ajax({
-      url: dashboardStateUrl,
-      cache: false,
-      async: true,
-      dataType: 'json',
-      data: {
-         action: "getState"
-      },
-      error: function (e) {
-	  //alert("Error" + e);
-      },
-      success: function (data) {
-	  var stateDataInString = data.dsState.ds_state;
-	  alert("stateDataInString: " + stateDataInString);
-	  //alert("data received" + dataInString);
-	  //var tabsArray = data.tabs;
-	  //		for (var i = 0; i < tabsArray.length; i++) {
-	  //alert(tabsArray[i].info);
-	  //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
-	  //alert(tabsArray[i].info);
-	  //		}
-      }
-  });  
+  $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+      var stateDataInString = data.dsState.ds_state;
+      alert("stateDataInString: " + stateDataInString);
+      var stateDataInJson = jQuery.parseJSON(stateDataInString);
+      alert("stateDataInJson: " + stateDataInJson);
+      alert(".serialize(): " + stateDataInJson.tabs[0].tabName);
+      
+      //var tabsArray = data.tabs;
+      //		for (var i = 0; i < tabsArray.length; i++) {
+      //alert(tabsArray[i].info);
+      //		    addTab(tabsArray[i].info, tabsArray[i].tabName);
+      //alert(tabsArray[i].info);
+      //		}    
+  });
 }
 
 
