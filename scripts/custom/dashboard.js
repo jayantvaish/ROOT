@@ -283,7 +283,7 @@ $(function () {
 
     }
     var tabTitle = $("#tab_title"),
-        tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>";
+        tabTemplate = "<li name='#{label}'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>";
 
     var tabs = $("#tabs").tabs();
 
@@ -342,9 +342,12 @@ $(function () {
 
     // close icon: removing the tab on click
     $("#tabs span.ui-icon-close").live("click", function () {
-        var panelId = $(this).closest("li").remove().attr("aria-controls");
+        var tabName = $(this).closest("li").attr("name");
+	removeTab(tabName);
+	
+	var panelId = $(this).closest("li").remove().attr("aria-controls");
         $("#" + panelId).remove();
-        tabs.tabs("refresh");
+	tabs.tabs("refresh");
         disableEnableLinks();
     });
     
@@ -360,6 +363,25 @@ $(function () {
 	
 	
     });
+    
+    function removeTab(tabName){
+      alert("Ramoving tab: " + tabName); 
+      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	  var stateDataInString = data.dsState.ds_state;
+	  var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	  var tabsArray = stateDataInJson.tabs;	    
+	  for (var i = 0; i < tabsArray.length; i++) {
+	      alert("iterating " + i);
+	      if(tabsArray[i] != null && tabsArray[i].tabName == tabName){
+		alert("To remove index: " + i);
+		delete tabsArray[i];
+		alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
+		saveDashboardStateData(JSON.stringify(stateDataInJson));
+		break;
+	      }
+	  }
+      });
+    }
     
     function persistTab(tabName){
       alert("Adding tab tabName: " + tabName);
@@ -436,8 +458,10 @@ $(function () {
 	    var tabsArray = stateDataInJson.tabs;	    
 	    alert("tabsArray.length: " + tabsArray.length);
 	    for (var i = 0; i < tabsArray.length; i++) {
-		alert("going to add tab");
-		addTab(tabsArray[i].info, tabsArray[i].tabName, true);
+		if(tabsArray[i] != null){
+		  alert("going to add tab");
+		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
+		}
 	    }
 	  }
 	  disableEnableLinks();
