@@ -453,15 +453,9 @@ $(function () {
 	    for (var i = 0; i < tabsArray.length; i++) {
 		if(tabsArray[i] != null){
 		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
-		}
-	    }
-	    
-	    //Initialize the startId.  
-	    for (var j = 0; j < tabsArray.length; j++) {
-		alert("tabsArray[j]: " + tabsArray[j]);
-		if(tabsArray[j] != null){
-		  alert("passed if condition, tabsArray[j]: " + tabsArray[j]);
-		  var widgetsData = tabsArray[j].info.result.data;
+		  
+		  //Initialize the startId.  
+		  var widgetsData = tabsArray[i].info.result.data;
 		  for(var k = 0; k < widgetsData.length; k++){
 		    if(widgetsData != null && widgetsData[k].id >= startId){
 		       startId = widgetsData[k].id;
