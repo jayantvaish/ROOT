@@ -176,10 +176,8 @@ $(function () {
         async: true,
         dataType: 'json',
         error: function (e) {
-            //alert("Error" + e);
         },
         success: function (data) {
-			console.log("data"+data.currentUser);
             if(data.currentUser == undefined || data.currentUser == null || $.trim(data.currentUser) =='' )
 			submitActionToURL('login.htm','logOut');
             else
@@ -211,7 +209,6 @@ $(function () {
         select: function (evt, ui) {
             currentTab = $(ui.panel).attr('id');
 	    currentTabName = $(ui.panel).attr('name');
-	    //alert("currentTabName: " + currentTabName);
             currentDashboard = dashboardManager.getDashboard(currentTab);
         }
     });
@@ -239,10 +236,8 @@ $(function () {
 
 
 	$('.column').live('click', function () {
-	  alert("column");
 	    if (currentDashboard != null) {
 		currentDashboard.element.live('dashboardStateChange',function(e, obj){
-		  alert("Layout  Changed by widgetDeleted.... " + currentDashboard.serialize() + " ," + obj);
 		  return false;
 		});
             }
@@ -251,11 +246,9 @@ $(function () {
 
 	
         $('.layoutchoice').live('click', function () {
-	  alert("layoutchoice");
 	    var eventCount = 0;
             if (currentDashboard != null) {
 		currentDashboard.element.live('dashboardLayoutChanged',function(e, obj){
-		alert("Layout  Changed by dashboardLayoutChanged.... " + currentDashboard.serialize() + " ," + obj);
 		return false;
 		});
             }
@@ -320,7 +313,6 @@ $(function () {
 
     // actual addTab function: adds new tab using the input from the form above
     function addTab(jsonData, tabName, istabExist) {
-      alert("Adding tab");
         var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
@@ -333,7 +325,6 @@ $(function () {
         tabCounter++;
         //Select the new tab added.
         $('#tabs').tabs('select', '#' + id + '');
-	alert("istabExist: " + istabExist);
 	if(!istabExist){
 	    persistTab(label);
 	}
@@ -360,28 +351,17 @@ $(function () {
     
     //This will execute on page load.
     $(document).ready(function () {
-        var jsonString = '{"tabs" :[ {  "tabName" : "tab1",  "info" : {  "result" : {  "layout":"layout2",  "data" : [    {      "id" : "cat-1-02",      "title" : "Processes-Instances Status Count",      "column" : "second",      "url" : "widgets/instance_status_cnt.jsp",      "open" : true    },    {      "id" :"cat-1-03",      "title" : "WS Response Time",      "column" : "first",      "url" : "widgets/ws_response_time.jsp",      "open" : true    }  ]  }  }  }  ]}'
-	//var stateDataInJson = jQuery.parseJSON(jsonString);
-	//alert('stateDataInJson: ' + stateDataInJson);	
-	//alert('stateData: ' + JSON.stringify(stateDataInJson));
-	//jsonString = '';
-	//saveDashboardStateData(jsonString);
-	getDashboardStateData();
-	
-	
+        getDashboardStateData();
     });
     
-    function persistWidget(widgetData){
-      alert("Adding widget: " + JSON.stringify(widgetData)); 
+    function persistWidget(widgetData){ 
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	var stateDataInString = data.dsState.ds_state;
 	var stateDataInJson = jQuery.parseJSON(stateDataInString);
 	var tabsArray = stateDataInJson.tabs;	    
 	for (var i = 0; i < tabsArray.length; i++) {
-	    alert("iterating " + i);
 	    if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
 	      tabsArray[i].info.result.data.push(widgetData);
-	      alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
 	      saveDashboardStateData(JSON.stringify(stateDataInJson));
 	      break;
 	    }
@@ -389,18 +369,14 @@ $(function () {
       });	    
     }
     
-    function removeTab(tabName){
-      alert("Ramoving tab: " + tabName); 
+    function removeTab(tabName){ 
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	  var stateDataInString = data.dsState.ds_state;
 	  var stateDataInJson = jQuery.parseJSON(stateDataInString);
 	  var tabsArray = stateDataInJson.tabs;	    
 	  for (var i = 0; i < tabsArray.length; i++) {
-	      alert("iterating " + i);
 	      if(tabsArray[i] != null && tabsArray[i].tabName == tabName){
-		alert("To remove index: " + i);
 		delete tabsArray[i];
-		alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
 		saveDashboardStateData(JSON.stringify(stateDataInJson));
 		break;
 	      }
@@ -409,7 +385,6 @@ $(function () {
     }
     
     function persistTab(tabName){
-      alert("Adding tab tabName: " + tabName);
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	  var newTab = {
 	      "tabName" : tabName,
@@ -420,7 +395,6 @@ $(function () {
 	    var stateDataInJson = jQuery.parseJSON(stateDataInString);
 	    var tabsArray = stateDataInJson.tabs;	    
 	    tabsArray.push(newTab);
-	    alert('stateData persistTab: ' + JSON.stringify(stateDataInJson));
 	    saveDashboardStateData(JSON.stringify(stateDataInJson));
 	  } else {
 	    saveDashboardStateData(JSON.stringify({"tabs" :[newTab]}));
@@ -439,10 +413,8 @@ $(function () {
 		jsonString: jsonString
 	  },
 	  error:function(e){
-		//alert("Error" + e);
 	  },
-	  success: function (data) {	
-	    alert("data saved");
+	  success: function (data) {
 	  }
       });
     }
@@ -475,27 +447,24 @@ $(function () {
     function getDashboardStateData(){
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	  var stateDataInString = data.dsState.ds_state;
-	  alert("stateDataInString: " + stateDataInString);
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
-	    var stateDataInJson = jQuery.parseJSON(stateDataInString);
-	    alert("stateDataInJson: " + stateDataInJson);	  
-	    //alert(".serialize(): " + stateDataInJson.tabs[0].tabName);	      
-	    var tabsArray = stateDataInJson.tabs;	    
-	    alert("tabsArray.length: " + tabsArray.length);
+	    var stateDataInJson = jQuery.parseJSON(stateDataInString);	      
+	    var tabsArray = stateDataInJson.tabs;
 	    for (var i = 0; i < tabsArray.length; i++) {
 		if(tabsArray[i] != null){
-		  alert("going to add tab");
 		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
 		}
 	    }
 	    
 	    //Initialize the startId.  
-	    for (var i = 0; i < tabsArray.length; i++) {
-		if(tabsArray[i] != null){
-		  var widgetsData = tabsArray[i].info.result.data;
-		  for(var i = 0; i < widgetsData.length; i++){
-		    if(widgetsData != null && widgetsData[i].id >= startId){
-		       startId = widgetsData[i].id;
+	    for (var j = 0; j < tabsArray.length; j++) {
+		alert("tabsArray[j]: " + tabsArray[j]);
+		if(tabsArray[j] != null){
+		  alert("passed if condition, tabsArray[j]: " + tabsArray[j]);
+		  var widgetsData = tabsArray[j].info.result.data;
+		  for(var k = 0; k < widgetsData.length; k++){
+		    if(widgetsData != null && widgetsData[k].id >= startId){
+		       startId = widgetsData[k].id;
 		       startId++;
 		    }
 		  }
@@ -510,7 +479,6 @@ $(function () {
 
 function disableEnableLinks() {
     var count = $("#tablist li").length;
-    alert("count is: " + count);
     if (parseInt(count) != 0) {
         $('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
         $('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");

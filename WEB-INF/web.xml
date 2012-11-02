@@ -31,7 +31,7 @@
    </servlet> 
    <servlet-mapping>
        <servlet-name>dashboard-springapp</servlet-name>
-	<url-pattern>*.json</url-pattern>
+        <url-pattern>*.json</url-pattern>
    </servlet-mapping>
     <servlet-mapping>
   
