@@ -245,12 +245,9 @@ $(function () {
         });
 
 	
-        $('.layoutchoice').live('click', function () {
-	    var eventCount = 0;
-            if (currentDashboard != null) {
-		currentDashboard.element.live('dashboardLayoutChanged',function(e, obj){
-		return false;
-		});
+	$('.layoutchoice').live('click', function () {
+	    if (currentDashboard != null) {
+		persistLayoutChange(currentDashboard.serialize());
             }
             return false;
         });
@@ -353,6 +350,25 @@ $(function () {
     $(document).ready(function () {
         getDashboardStateData();
     });
+    
+    function persistLayoutChange(tabInfoResult){
+	$.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	var stateDataInString = data.dsState.ds_state;
+	var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	var tabsArray = stateDataInJson.tabs;	    
+	for (var i = 0; i < tabsArray.length; i++) {
+	    if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
+	      var tabInfoResultInJson = jQuery.parseJSON(tabInfoResult);
+	      //Before saving data adding rule: for widget 1 all column should be in first and for layout 2,3,4 all third columns should be in first.
+	      checkLayoutColumns(tabInfoResultInJson);
+	      tabsArray[i].info.result = tabInfoResultInJson;
+	      saveDashboardStateData(JSON.stringify(stateDataInJson));
+	      break;
+	    }
+	}
+      });
+      
+    }
     
     function persistWidget(widgetData){ 
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
@@ -483,6 +499,28 @@ function disableEnableLinks() {
     }
 }
 
-
+function checkLayoutColumns(data){
+  //Layout 1  have 1 column
+  //Layout 2, 3, and 4  have 2 column
+  //Layout 3 have 3 columns
+  var layout = data.layout;
+  var data = data.data;
+  if(layout == 'layout1'){
+    //Change all columns to first. 
+    for(var i = 0; i < data.length; i++){
+      if(data[i].column != 'first'){
+	data[i].column = 'first';
+	
+      }
+    }
+  } else if(layout == 'layout2' || layout == 'layout3' || layout == 'layout4'){
+    for(var i = 0; i < data.length; i++){
+      if(data[i].column == 'third'){
+	data[i].column = 'first';
+	
+      }
+    }
+  }
+}
 
 
