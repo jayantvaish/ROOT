@@ -74,12 +74,13 @@
                             class="headerlink">|</span>&nbsp; <a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a>
 
                     </div>
-                    <div class="tooltipContent" style="float:center;display:none;margin-left:-2px;margin-top:-2px;">
-                        <button id="btnHelp">
-                            <fmt:message key="com_intalio_bpms_dashboard_help" /></button>
+                    <div class="tooltipContent" style="float:center;display:none;margin-left:-6px;margin-top:-2px;">
+                        <button id="btnHelp" style="width:80px">
+                            <fmt:message key="com_intalio_bpms_dashboard_help"/>
+                        </button>
                         </br></br>
-                        <button id="btnLogout">
-                            <fmt:message key="com_intalio_bpms_console_pageHeader_logout" />
+                        <button id="btnLogout" style="width:80px">
+                            <fmt:message key="com_intalio_bpms_console_pageHeader_logout"/>
                         </button>
                     </div>
                     <div id="dialog" title="Add Tab">
@@ -97,6 +98,12 @@
                         <ul id="tablist"></ul>
                     </div>
                     <div id="templates"></div>
+					<input type="hidden" name="accessible" id="accessible"/>
+					<div id="notaccessible" title="Warning" style="display:none;font-size:14px;font-family:verdana"">
+					<label><fmt:message key="com_intalio_bpms_dashboard_notaccdialog_content"/><label/>
+					</div>
+					<div id="messageDialog" title="Message">
+					</div>
                 </form>
             </body>
         

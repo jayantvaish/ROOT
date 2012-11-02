@@ -69,8 +69,8 @@ function showNotification(data)
 function createNotificationsChart(dataObj)
 {
 	nv.addGraph(function() {
-    var width = 500,
-        height = 500;
+    var width = 625,
+        height = 400;
 
     var chart = nv.models.pieChart()
         .x(function(d) { return d.label })
@@ -90,9 +90,9 @@ function createNotificationsChart(dataObj)
 </script>
 </head>
 <body>
-<div id="processdashlet1" class="io-dashlet io-dashlet1">
+<div id="processdashlet1">
 		<div style="position:relative; padding-top:1%" >
     			<svg id="chart4" style="word-wrap: break-word;"></svg>
   		</div>
-	</div>
+</div>
 </body>	</html>

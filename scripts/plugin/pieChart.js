@@ -17,7 +17,7 @@ nv.models.pieChart = function() {
     , tooltips = true
     , tooltip = function(key, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + '</p>'+'<p> mins </p>'
+               '<p>' +  y + '</p>'
       }
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide')

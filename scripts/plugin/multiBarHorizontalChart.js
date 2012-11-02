@@ -91,7 +91,7 @@ nv.models.multiBarHorizontalChart = function() {
           .style('text-anchor', 'middle');
 
         noDataText
-          .attr('x', margin.left + availableWidth / 2)
+          .attr('x', 360)
           .attr('y', margin.top + availableHeight / 2)
           .text(function(d) { return d });
 

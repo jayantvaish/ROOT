@@ -69,8 +69,8 @@ function showTaskSummary(data)
 function createTaskSummaryChart(dataObj)
 {
 	nv.addGraph(function() {
-    var width = 500,
-        height = 500;
+    var width = 625,
+        height = 400;
 
     var chart = nv.models.pieChart()
         .x(function(d) { return d.label })

@@ -22,6 +22,7 @@ nv.models.multiBarHorizontal = function() {
     , delay = 1200
     , xDomain
     , yDomain
+    , noData = "No Data Available."
     , dispatch = d3.dispatch('chartClick', 'elementClick', 'elementDblClick', 'elementMouseover', 'elementMouseout')
     ;
 
@@ -62,6 +63,25 @@ nv.models.multiBarHorizontal = function() {
         return series;
       });
 
+	//------------------------------------------------------------
+      // Display No Data message if there's nothing to show.
+
+      if (!data || !data.length || !data.filter(function(d) { return d.values.length }).length) {
+        var noDataText = container.selectAll('.nv-noData').data([noData]);
+
+        noDataText.enter().append('text')
+          .attr('class', 'nvd3 nv-noData')
+          .attr('dy', '-.7em')
+          .style('text-anchor', 'left');
+
+        noDataText
+          .attr('x', 360)
+          .attr('y', margin.top + availableHeight / 2)
+          .text(function(d) { return d });
+	    return chart;
+      } else {
+        container.selectAll('.nv-noData').remove();
+      }
 
       //------------------------------------------------------------
       // Setup Scales
@@ -363,6 +383,11 @@ nv.models.multiBarHorizontal = function() {
     return chart;
   };
 
+  chart.noData = function(_) {
+    if (!arguments.length) return noData;
+    noData = _;
+    return chart;
+  };	
   //============================================================
 
 
