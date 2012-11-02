@@ -220,17 +220,17 @@ $(function () {
 
         $('.dmopenaddwidgetdialog').click(function () {
             // open the lightbox for active tab
-            var dashboard = dashboardManager.getDashboard(currentTab);
-            dashboard.element.trigger("dashboardOpenWidgetDialog");
-
+            if (currentDashboard != null) {
+	      currentDashboard.element.trigger("dashboardOpenWidgetDialog");
+	    }
             return false;
         });
 
         $('.dmeditLayout').click(function () {
             // open the lightbox for active tab
-            var dashboard = dashboardManager.getDashboard(currentTab);
-            dashboard.element.trigger("dashboardOpenLayoutDialog");
-
+            if (currentDashboard != null) {
+	      currentDashboard.element.trigger("dashboardOpenLayoutDialog");
+	    }
             return false;
         });
 
