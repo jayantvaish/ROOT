@@ -252,6 +252,12 @@ $(function () {
             }
             return false;
         });
+	
+	$('.delete').live('click', function () {
+	    setTimeout(function(){
+		persistLayoutChange(currentDashboard.serialize());
+	    },2000);
+        });
 
 	
         $('.addwidget').live('click', function () {
