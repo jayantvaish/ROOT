@@ -34,6 +34,8 @@ var currentTab;
 var startId = 100;
 var currentDashboard;
 var istabExist = false;
+var isFirstTab = false;
+var firstTabId;
 var currentTabName;
 var dashboardStateUrl = 'dsState.json';
 var defaultData = {
@@ -297,7 +299,7 @@ $(function () {
         resizable: false,
         buttons: {
             Add: function () {
-                addTab(defaultData, tabTitle.val(), istabExist);
+                addTab(defaultData, tabTitle.val(), istabExist, isFirstTab);
                 $(this).dialog("close");
             }
         },
@@ -309,13 +311,13 @@ $(function () {
 
     // addTab form: calls addTab function on submit and closes the dialog
     var form = dialog.find("form").submit(function (event) {
-        addTab(defaultData, tabTitle.val(), istabExist);
+        addTab(defaultData, tabTitle.val(), istabExist, isFirstTab);
         dialog.dialog("close");
         event.preventDefault();
     });
 
     // actual addTab function: adds new tab using the input from the form above
-    function addTab(jsonData, tabName, istabExist) {
+    function addTab(jsonData, tabName, istabExist, isFirstTab) {
         var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
@@ -327,6 +329,9 @@ $(function () {
         //Increment the counter.
         tabCounter++;
         //Select the new tab added.
+	if(isFirstTab){
+	    firstTabId = id;
+	}
         $('#tabs').tabs('select', '#' + id + '');
 	if(!istabExist){
 	    persistTab(label);
@@ -472,9 +477,15 @@ $(function () {
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
 	    var stateDataInJson = jQuery.parseJSON(stateDataInString);	      
 	    var tabsArray = stateDataInJson.tabs;
+	    var j = 0;
 	    for (var i = 0; i < tabsArray.length; i++) {
 		if(tabsArray[i] != null){
-		  addTab(tabsArray[i].info, tabsArray[i].tabName, true);
+		  if(j == 0){
+		    j++;
+		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, true);
+		  } else {
+		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, false);
+		  }
 		  
 		  //Initialize the startId.  
 		  var widgetsData = tabsArray[i].info.result.data;
@@ -486,6 +497,7 @@ $(function () {
 		  }
 		}
 	    }
+	    $('#tabs').tabs('select', '#' + firstTabId + '');
 	  }
 	  disableEnableLinks();
       });
