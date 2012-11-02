@@ -237,7 +237,9 @@ $(function () {
 
 	$('.column').live('widgetDropped', function () {
 	    if (currentDashboard != null) {
-		persistLayoutChange(currentDashboard.serialize());
+		setTimeout(function(){
+		    persistLayoutChange(currentDashboard.serialize());
+		},2000);
             }
             return false;
         });
