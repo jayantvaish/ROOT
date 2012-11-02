@@ -238,6 +238,7 @@ $(function () {
 	$('.column').live('click', function () {
 	    if (currentDashboard != null) {
 		currentDashboard.element.live('dashboardStateChange',function(e, obj){
+		  persistLayoutChange(currentDashboard.serialize());
 		  return false;
 		});
             }
