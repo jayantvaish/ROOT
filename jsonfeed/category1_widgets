@@ -32,7 +32,8 @@
       "description" : "Instances Summary",
       "creator" : "Intalio Inc",
       "url" : "widgets/notifications.jsp",
-      "image": ""
+      "image": "",
+      "accessible": "true"
     }
   ]
   }

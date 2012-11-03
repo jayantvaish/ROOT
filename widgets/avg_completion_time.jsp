@@ -11,17 +11,17 @@ function getData()
 	$.ajax({
 		  url: url,
 		  cache:false,
-		  async: true,
+		  async: false,
 		  dataType: 'json',
 		  error:function(e){
 			  //alert("Error" + e);
 		  },
 		  success: function (data) {	
 								if(data.isConsoleAccessible == "true")
-								{
 									createAvgProcessCompTimeChartData(data);
-								}
-							}
+								else
+									$("#accessible").val("false");
+								  }
 		});
 }
 /**

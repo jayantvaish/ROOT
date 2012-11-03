@@ -16,7 +16,8 @@
       "description" : "Shows the task summary.",
       "creator" : "Intalio Inc",
       "url" : "widgets/task_summary.jsp",
-      "image": ""
+      "image": "",
+      "accessible": "true"
     }
   ]
   }

@@ -37,6 +37,7 @@ var istabExist = false;
 var isFirstTab = false;
 var firstTabId;
 var currentTabName;
+var isConsoleAccessible;
 var dashboardStateUrl = 'dsState.json';
 var defaultData = {
 "result" :
@@ -165,7 +166,7 @@ $(function () {
     $.ajax({
         url: url,
         cache: false,
-        async: true,
+        async: false,
         dataType: 'json',
         error: function (e) {
         },
@@ -173,7 +174,11 @@ $(function () {
             if(data.currentUser == undefined || data.currentUser == null || $.trim(data.currentUser) =='' )
 			submitActionToURL('login.htm','logOut');
             else
-            $("#userProfile span").text(data.currentUser);
+            {
+				$("#userProfile span").text(data.currentUser);
+				$("#accessible").val(data.isConsoleAccessible);
+				isConsoleAccessible = data.isConsoleAccessible;
+			}	
         }
 
     });
@@ -260,16 +265,37 @@ $(function () {
 		  if(eventCount == 0){
 		    eventCount++;
 		    var widget = obj.widget;
-                    var widgetData = {
-                        "id": startId++,
-                        "title": widget.title,
-                        "url": widget.url,
-			"column" : "first",
-			"open" : true,
-                        "metadata": widget.metadata
-                    }
-		    currentDashboard.addWidget(widgetData, currentDashboard.element.find('.column:first'));
-		    persistLayoutChange(currentDashboard.serialize());
+		    var accessible = "";
+		    if(widget.accessible!=null && widget.accessible!=undefined){
+		      accessible = widget.accessible;
+		    } else {
+		      accessible = "false";
+		    }
+		    var widgetData;
+		    if(accessible == "true"){
+			widgetData = {
+			    "id": startId++,
+			    "title": widget.title,
+			    "url": widget.url,
+			    "column" : "first",
+			    "open" : true,
+			    "accessible": "true",
+			    "metadata": widget.metadata
+			}
+		    } else {
+			widgetData = {
+			    "id": startId++,
+			    "title": widget.title,
+			    "url": widget.url,
+			    "column" : "first",
+			    "open" : true,
+			    "metadata": widget.metadata
+			}
+		    }
+		    currentDashboard.addWidget(widgetData, currentDashboard.element.find('.column:first'),accessible);
+		    if(accessible == "true" || isConsoleAccessible == "true"){
+		      persistWidget(widgetData);
+		    }
 		  }
                   return false;
                 });
@@ -372,6 +398,36 @@ $(function () {
       
     }
     
+    function persistWidget(widgetData){ 
+      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+	var stateDataInString = data.dsState.ds_state;
+	var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	var tabsArray = stateDataInJson.tabs;
+	//Checking whether it is already added or not?
+	var isAlreadyPresent = false;
+	var url = widgetData.url;
+	for (var i = 0; i < tabsArray.length; i++) {
+	    if(tabsArray[i] != null){
+	      var widgets = tabsArray[i].info.result.data;
+	      for(var j = 0; j < widgets.length; j++){
+		if(widgets[j].url == url){
+		  isAlreadyPresent = true;
+		  break;
+		}
+	      }
+	    }
+	}
+	if(!isAlreadyPresent){
+	  for (var i = 0; i < tabsArray.length; i++) {
+	      if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
+		tabsArray[i].info.result.data.push(widgetData);
+		saveDashboardStateData(JSON.stringify(stateDataInJson));
+		break;
+	      }
+	  }
+	}
+      });	    
+    }
     
     function removeTab(tabName){ 
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {

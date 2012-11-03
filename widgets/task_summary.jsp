@@ -17,8 +17,9 @@ function getData()
 			  console.log("Error occured");
 		  },
 		  success: function (data) {	
-								showTaskSummary(data);
-							  }
+									$("#accessible").val(data.isConsoleAccessible);
+									showTaskSummary(data);
+								   }
 		});
 }
 /**
