@@ -8,7 +8,7 @@
       "description" : "List of users currently on vacation.",
       "creator" : "Intalio Inc",
       "url" : "widgets/vacation_summary.jsp",
-      "image": ""
+      "image": "images/vacation.png"
     }
 	]
   }

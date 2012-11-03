@@ -8,7 +8,7 @@
       "description" : "Average Completion Time Of A Process",
       "creator" : "Intalio Inc",
       "url" : "widgets/avg_completion_time.jsp",
-      "image": ""
+      "image": "images/avg_completion.png"
     },
     {
       "id" : "cat-1-02",
@@ -16,7 +16,7 @@
       "description" : "Processes-Instances Status Count",
       "creator" : "Intalio Inc",
       "url" : "widgets/instance_status_cnt.jsp",
-      "image": ""
+      "image": "images/process_instance_count.png"
     },
     {
       "id" : "cat-1-03",
@@ -24,7 +24,7 @@
       "description" : "Average time taken by service calls.",
       "creator" : "Intalio Inc",
       "url" : "widgets/ws_response_time.jsp",
-      "image": ""
+      "image": "images/ws_response.png"
     },
     {
       "id" : "cat-1-04",
@@ -32,7 +32,7 @@
       "description" : "Instances Summary",
       "creator" : "Intalio Inc",
       "url" : "widgets/notifications.jsp",
-      "image": "",
+      "image": "images/instances_summary.png",
       "accessible": "true"
     }
   ]

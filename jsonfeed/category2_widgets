@@ -8,7 +8,7 @@
       "description" : "User-wise Pending/Claimed task count",
       "creator" : "Intalio Inc",
       "url" : "widgets/user_task_count.jsp",
-      "image": ""
+      "image": "images/user_wise_task_pending.png"
     },
     {
       "id" : "cat-2-02",
@@ -16,7 +16,7 @@
       "description" : "Shows the task summary.",
       "creator" : "Intalio Inc",
       "url" : "widgets/task_summary.jsp",
-      "image": "",
+      "image": "images/task_summary.png",
       "accessible": "true"
     }
   ]
