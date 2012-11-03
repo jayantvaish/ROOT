@@ -58,7 +58,7 @@ function displayUserwiseTaskGraph(dataObj)
   chart.yAxis
       .tickFormat(d3.format(',.2f'));
 
-  d3.select('#chart4 svg')
+  d3.select('#chart5 svg')
       .datum(dataObj)
     .transition().duration(500)
       .call(chart);
@@ -76,6 +76,7 @@ function displayUserwiseTaskGraph(dataObj)
  * */
 function createUserwiseTaskGraph(data)
 {
+	var editeditems = [];
 	if (!isObjectEmpty(data.userTaskCount)) {
 		var pendingArray= []; // pending count
 		var claimedArray= []; // claimed count
@@ -99,8 +100,6 @@ function createUserwiseTaskGraph(data)
 								
 		});
 
-		
-		var editeditems = [];
 		editeditems.push({
             		key: 'Pending',
 			color: '#d62728',
@@ -112,14 +111,15 @@ function createUserwiseTaskGraph(data)
             		values: claimedArray
         	});
 						
-		displayUserwiseTaskGraph(editeditems);
+		
 	}
+	displayUserwiseTaskGraph(editeditems);
 }
 </script>
 </head>        
 <body>
        <div id="taskdashlet3">
-		<div id="chart4" style="position:relative; margin-left:5px">
+		<div id="chart5" style="position:relative; margin-left:5px">
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>

@@ -105,7 +105,7 @@ function createWsResTimeChart(data)
 	chart.y1Axis.tickFormat(d3.format(',100'));
 	chart.y2Axis.tickFormat(function(d) { return d3.format(',100')(d) });
     chart.bars.forceY([0]);
-    d3.select('#chart3 svg')
+    d3.select('#chart6 svg')
       .datum(data)
       .transition().duration(500).call(chart);
       nv.utils.windowResize(chart.update);
@@ -116,7 +116,7 @@ function createWsResTimeChart(data)
 </head>	
 <body>
 <div id="processdashlet6">
-		<div id="chart3" style="position:relative; padding-top:1%" >
+		<div id="chart6" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 </div>

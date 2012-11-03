@@ -46,14 +46,16 @@ function showNotification(data)
 	
 	var dataArr = new Array();
 	var hashMapNoti = [];
+	var editeditems = [];
 	if (!isObjectEmpty(data.instancesSummary)) {
 		$.each(data.instancesSummary, function (key, value) {
-		hashMapNoti.push({
+		 if(parseInt(value)!=0){
+			hashMapNoti.push({
         				label: key,
         				value: parseInt(value),
-    				});
+    					});
+			}
 		});
-		var editeditems = [];
 		editeditems.push({
             		key: 'Cumulative Return',
 					values: hashMapNoti
@@ -67,33 +69,32 @@ function showNotification(data)
  * @param           : object
  * @returns         : 
  * */
-function createNotificationsChart(dataObj)
-{
-	nv.addGraph(function() {
-    var width = 625,
-        height = 400;
-
-    var chart = nv.models.pieChart()
-        .x(function(d) { return d.label })
-        .y(function(d) { return d.value })
-        .color(d3.scale.category10().range())
-        .width(width)
-        .height(height);
-		d3.select("#chart4")
-        .datum(dataObj)
-        .transition().duration(1200)
-        .attr('width', width)
-        .attr('height', height)
-        .call(chart);
-		return chart;
+function createNotificationsChart(data)
+{	
+	nv.addGraph(function() {  
+	var chart = nv.models.discreteBarChart();
+      chart.x(function(d) { return d.label });
+      chart.y(function(d) { return d.value });
+      chart.staggerLabels(true);
+      chart.tooltips(true);
+      chart.showValues(true);
+      chart.xAxis.showMaxMin(false);
+      chart.yAxis.showMaxMin(false);
+      chart.yAxis.axisLabel('Count');
+	d3.select('#chart3 svg')
+      .datum(data)
+	  .transition().duration(500)
+      .call(chart);
+    nv.utils.windowResize(chart.update);
+	return chart;
 	});
-}	
+}
 </script>
 </head>
 <body>
 <div id="processdashlet1">
-		<div style="position:relative; padding-top:1%" >
-    			<svg id="chart4" style="word-wrap: break-word;"></svg>
+		<div id="chart3" style="position:relative; padding-top:1%" >
+    			<svg  style="word-wrap: break-word;"></svg>
   		</div>
 </div>
 </body>	</html>

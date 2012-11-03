@@ -309,6 +309,8 @@ $(function () {
 
     var tabs = $("#tabs").tabs();
 
+    $("#tabs").css("border-bottom","#ffffff");	
+
     // modal dialog init: custom buttons and a "close" callback reseting the form inside
     var dialog = $("#dialog").dialog({
         autoOpen: false,
@@ -317,7 +319,7 @@ $(function () {
         buttons: {
             Add: function () {
                 addTab(defaultData, tabTitle.val(), istabExist, isFirstTab);
-                $(this).dialog("close");
+                
             }
         },
         close: function () {
@@ -335,7 +337,22 @@ $(function () {
 
     // actual addTab function: adds new tab using the input from the form above
     function addTab(jsonData, tabName, istabExist, isFirstTab) {
-        var label = tabName || "Tab " + tabCounter,
+	//dialog to show tab title mandatory
+	var dialog = $("#messageDialog").dialog({
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			close: function () {
+			$(this).dialog("close");
+			}
+	});
+        if(tabName=="" || tabName==undefined){
+        $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">Please Enter Tab Title</a>');
+        $('#messageDialog').dialog('open');        return false;}
+        else
+        $('#dialog').dialog("close");        
+	
+	var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
             li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label));
 

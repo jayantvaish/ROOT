@@ -103,13 +103,7 @@ $(document).ready(function() {
     <table>
 	<tr>
 	   <spring:bind path="login.username">
-		<td ><c:choose>
-			<c:when test="${status.error}">
-				<label style="font-size: 12px;"> <fmt:message
-					key="com_intalio_bpms_console_login_username" /> </label>
-			</c:when>
-			</c:choose></td>
-				<td ><input type="text" size=16 name="username" onfocus="this.value=''"
+		<td ><input type="text" size=16 name="username" onfocus="this.value=''"
 					value="${login.username}" class="input username"  />
 				<font color="red">${status.errorMessage}</font></td>
 	   </spring:bind>
@@ -117,13 +111,7 @@ $(document).ready(function() {
 	
 	   <tr>			
 	   <spring:bind path="login.password">
-		<td style=" position:absolute; left:230px; top:30px;"><c:choose>
-			<c:when test="${status.error}">
-				<label style="font-size: 12px;"> <fmt:message
-					key="com_intalio_bpms_console_login_password" /> </label>
-			</c:when>
-			</c:choose></td>
-			<td class="io-login-loginBox-password"><input type="password" name="password" onfocus="this.value=''"
+		<td class="io-login-loginBox-password"><input type="password" name="password" onfocus="this.value=''"
 				value="${login.password}" class="input password"/>
 			<font color="red">${status.errorMessage}</font></td>
 		</spring:bind>

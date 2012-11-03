@@ -62,7 +62,7 @@ function addMultiBarGraph(dataObj)//array defining layers, number of processes, 
 	chart.yAxis
        		.tickFormat(d3.format(',0.01f'));
         
-	d3.select('#chart1 svg')
+	d3.select('#chart2 svg')
         	.datum(dataObj)
       		.transition().duration(500).call(chart);
 
@@ -79,6 +79,7 @@ function addMultiBarGraph(dataObj)//array defining layers, number of processes, 
  * */
 function createMultiBarChartData(data)
 {
+	var editeditems = [];
 	if (!isObjectEmpty(data.processes)) {
 		var statusArray0= []; // inprogress
 		var statusArray1= []; // suspended
@@ -114,8 +115,6 @@ function createMultiBarChartData(data)
 								
 		});
 
-		
-		var editeditems = [];
 		editeditems.push({
             		key: "inProgress",
             		values: statusArray0
@@ -133,14 +132,15 @@ function createMultiBarChartData(data)
             		values: statusArray3
         	});
 				
-		addMultiBarGraph(editeditems);
+		
 	}
+	addMultiBarGraph(editeditems);
 }
 </script>
 </head>	
 <body>
 <div id="processdashlet4">
-		<div id="chart1" style="position:relative; padding-top:1%" >
+		<div id="chart2" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>

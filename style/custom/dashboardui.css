@@ -121,9 +121,10 @@ body {
   color: #000;
 }
 .headerlinks {
+  position:relative;
   text-align:right;  
   margin-top:-25px;
-  margin-right:188px;
+  margin-right:194px;
   margin-bottom:5px;
   text-decoration:none;
   font-weight:bold;

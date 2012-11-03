@@ -11,7 +11,7 @@ function getData()
 	$.ajax({
 		  url: url,
 		  cache:false,
-		  async: false,
+		  async: true,
 		  dataType: 'json',
 		  error:function(e){
 			  //alert("Error" + e);
@@ -19,8 +19,6 @@ function getData()
 		  success: function (data) {	
 								if(data.isConsoleAccessible == "true")
 									createAvgProcessCompTimeChartData(data);
-								else
-									$("#accessible").val("false");
 								  }
 		});
 }
@@ -46,6 +44,7 @@ function isObjectEmpty(object) {
  * */
 function createAvgProcessCompTimeChartData(data)
 {
+	var jsonArray = [];
 	var valuesArray= [];
 	if (!isObjectEmpty(data.completedInstances)) {
 		$.each(data.completedInstances, function (key, value) {
@@ -63,9 +62,10 @@ function createAvgProcessCompTimeChartData(data)
 		   		key: "Average Time",
            		values: valuesArray
         	}
-        var jsonArray = [array];	
-        createAvgProcessCompTimeChart(jsonArray);        
+			jsonArray = [array];	
+                
 	}
+	createAvgProcessCompTimeChart(jsonArray);
 }
 /**
  * @Function Name   : createAvgProcessCompTimeChart 
@@ -86,7 +86,7 @@ function createAvgProcessCompTimeChart(data)
       chart.yAxis.showMaxMin(false);
       chart.xAxis.axisLabel('Processes');
       chart.yAxis.axisLabel('Time (seconds)');
-	d3.select('#chart2 svg')
+	d3.select('#chart1 svg')
       .datum(data)
 	  .transition().duration(500)
       .call(chart);
@@ -98,7 +98,7 @@ function createAvgProcessCompTimeChart(data)
 </head>	
 <body>
 <div id="processdashlet5">
-		<div id="chart2" style="position:relative; padding-top:1%" >
+		<div id="chart1" style="position:relative; padding-top:1%" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>
