@@ -83,16 +83,6 @@ function addNewDashboard(id, jsonData) {
     }); // end dashboard call
 
 
-    // binding for a widgets is added to the dashboard
-    //      dashboard1.element.live('dashboardAddWidget', function (e, obj) {
-    //      	var widget = obj.widget;
-    //      	dashboard1.addWidget({
-    //      	          "id": startId++,
-    //      	          "title": widget.title,
-    //      	          "url": widget.url,
-    //      	          "metadata": widget.metadata
-    //      	        }, dashboard1.element.find('.column:first'));
-    //      	});
     dashboard1.init();
     dashboardManager.addDashboard(dashboard1);
 }
@@ -236,17 +226,17 @@ $(function () {
             return false;
         });
 
-
+	//persist when widget dnd.
 	$('.column').live('widgetDropped', function () {
 	    if (currentDashboard != null) {
 		setTimeout(function(){
 		    persistLayoutChange(currentDashboard.serialize());
-		},2000);
+		},500);
             }
             return false;
         });
 
-	
+	//persist when layout changed.
 	$('.layoutchoice').live('click', function () {
 	    if (currentDashboard != null) {
 		persistLayoutChange(currentDashboard.serialize());
@@ -254,13 +244,14 @@ $(function () {
             return false;
         });
 	
+	//persist when widget deleted.
 	$('.delete').live('click', function () {
 	    setTimeout(function(){
 		persistLayoutChange(currentDashboard.serialize());
-	    },2000);
+	    },500);
         });
 
-	
+	//Add and persist widget.
         $('.addwidget').live('click', function () {
 	    //On a single click dashboardAddWidget event should be fired only once.
 	    var eventCount = 0;
@@ -277,8 +268,8 @@ $(function () {
 			"open" : true,
                         "metadata": widget.metadata
                     }
-		    persistWidget(widgetData);
 		    currentDashboard.addWidget(widgetData, currentDashboard.element.find('.column:first'));
+		    persistLayoutChange(currentDashboard.serialize());
 		  }
                   return false;
                 });
@@ -381,20 +372,6 @@ $(function () {
       
     }
     
-    function persistWidget(widgetData){ 
-      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
-	var stateDataInString = data.dsState.ds_state;
-	var stateDataInJson = jQuery.parseJSON(stateDataInString);
-	var tabsArray = stateDataInJson.tabs;	    
-	for (var i = 0; i < tabsArray.length; i++) {
-	    if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
-	      tabsArray[i].info.result.data.push(widgetData);
-	      saveDashboardStateData(JSON.stringify(stateDataInJson));
-	      break;
-	    }
-	}
-      });	    
-    }
     
     function removeTab(tabName){ 
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
