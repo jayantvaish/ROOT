@@ -39,6 +39,7 @@ var firstTabId;
 var currentTabName;
 var isConsoleAccessible;
 var dashboardStateUrl = 'dsState.json';
+var dsState;
 var defaultData = {
 "result" :
   {
@@ -397,9 +398,7 @@ $(function () {
     });
     
     function persistLayoutChange(tabInfoResult){
-	$.getJSON(dashboardStateUrl + '?action=getState', function(data) {
-	var stateDataInString = data.dsState.ds_state;
-	var stateDataInJson = jQuery.parseJSON(stateDataInString);
+	var stateDataInJson = dsState;
 	var tabsArray = stateDataInJson.tabs;	    
 	for (var i = 0; i < tabsArray.length; i++) {
 	    if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
@@ -407,18 +406,15 @@ $(function () {
 	      //Before saving data adding rule: for widget 1 all column should be in first and for layout 2,3,4 all third columns should be in first.
 	      checkLayoutColumns(tabInfoResultInJson);
 	      tabsArray[i].info.result = tabInfoResultInJson;
-	      saveDashboardStateData(JSON.stringify(stateDataInJson));
+	      dsState = stateDataInJson;
+	      saveDashboardStateData(JSON.stringify(dsState));
 	      break;
 	    }
 	}
-      });
-      
     }
     
-    function persistWidget(widgetData){ 
-      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
-	var stateDataInString = data.dsState.ds_state;
-	var stateDataInJson = jQuery.parseJSON(stateDataInString);
+    function persistWidget(widgetData){
+	var stateDataInJson = dsState;
 	var tabsArray = stateDataInJson.tabs;
 	//Checking whether it is already added or not?
 	var isAlreadyPresent = false;
@@ -438,45 +434,42 @@ $(function () {
 	  for (var i = 0; i < tabsArray.length; i++) {
 	      if(tabsArray[i] != null && tabsArray[i].tabName == currentTabName){
 		tabsArray[i].info.result.data.push(widgetData);
-		saveDashboardStateData(JSON.stringify(stateDataInJson));
+		dsState = stateDataInJson;
+		saveDashboardStateData(JSON.stringify(dsState));
 		break;
 	      }
 	  }
 	}
-      });	    
     }
     
-    function removeTab(tabName){ 
-      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
-	  var stateDataInString = data.dsState.ds_state;
-	  var stateDataInJson = jQuery.parseJSON(stateDataInString);
+    function removeTab(tabName){
+	  var stateDataInJson = dsState;
 	  var tabsArray = stateDataInJson.tabs;	    
 	  for (var i = 0; i < tabsArray.length; i++) {
 	      if(tabsArray[i] != null && tabsArray[i].tabName == tabName){
 		delete tabsArray[i];
-		saveDashboardStateData(JSON.stringify(stateDataInJson));
+		dsState = stateDataInJson;
+		saveDashboardStateData(JSON.stringify(dsState));
 		break;
 	      }
 	  }
-      });
     }
     
     function persistTab(tabName){
-      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	  var newTab = {
 	      "tabName" : tabName,
 	      "info" : defaultData
 	    };
-	  var stateDataInString = data.dsState.ds_state;
+	  var stateDataInString = JSON.stringify(dsState);
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
 	    var stateDataInJson = jQuery.parseJSON(stateDataInString);
 	    var tabsArray = stateDataInJson.tabs;	    
 	    tabsArray.push(newTab);
-	    saveDashboardStateData(JSON.stringify(stateDataInJson));
+	    dsState = stateDataInJson;
 	  } else {
-	    saveDashboardStateData(JSON.stringify({"tabs" :[newTab]}));
+	    dsState = {"tabs" :[newTab]}
 	  }
-      });
+	  saveDashboardStateData(JSON.stringify(dsState));
     }
     
     function saveDashboardStateData(jsonString){
@@ -525,7 +518,8 @@ $(function () {
       $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
 	  var stateDataInString = data.dsState.ds_state;
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
-	    var stateDataInJson = jQuery.parseJSON(stateDataInString);	      
+	    var stateDataInJson = jQuery.parseJSON(stateDataInString);	
+	    dsState = stateDataInJson;
 	    var tabsArray = stateDataInJson.tabs;
 	    var j = 0;
 	    for (var i = 0; i < tabsArray.length; i++) {
