@@ -319,7 +319,7 @@ $(function () {
         resizable: false,
         buttons: {
             Add: function () {
-                addTab(defaultData, tabTitle.val(), istabExist, isFirstTab);
+                addTab(defaultData, tabTitle.val(), istabExist, isFirstTab, false);
                 
             }
         },
@@ -331,15 +331,15 @@ $(function () {
 
     // addTab form: calls addTab function on submit and closes the dialog
     var form = dialog.find("form").submit(function (event) {
-        addTab(defaultData, tabTitle.val(), istabExist, isFirstTab);
+        addTab(defaultData, tabTitle.val(), istabExist, isFirstTab, false);
         dialog.dialog("close");
         event.preventDefault();
     });
 
     // actual addTab function: adds new tab using the input from the form above
-    function addTab(jsonData, tabName, istabExist, isFirstTab) {
+    function addTab(jsonData, tabName, istabExist, isFirstTab, isLoading) {
 	//dialog to show tab title mandatory
-	var dialog = $("#messageDialog").dialog({
+	var messageDialog = $("#messageDialog").dialog({
 			autoOpen: false,
 			modal: true,
 			resizable: false,
@@ -348,10 +348,24 @@ $(function () {
 			}
 	});
         if(tabName=="" || tabName==undefined){
-        $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">Please Enter Tab Title</a>');
-        $('#messageDialog').dialog('open');        return false;}
-        else
-        $('#dialog').dialog("close");        
+	  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please Enter Tab Title</a>');
+	  messageDialog.dialog('open');
+	  return false;	  
+	} else {
+	    //check whether this name exist or not? It will make tabName unique. 
+	    var stateDataInJson = dsState;
+	    var tabsArray = stateDataInJson.tabs;
+	    var isAlreadyPresent = false;
+	    for (var i = 0; i < tabsArray.length; i++) {
+		if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
+		  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please enter another title, "' + tabName + '" exists.</a>');
+		  $('#tab_title').val("");
+		  messageDialog.dialog('open');
+		  return false;
+		}
+	    }
+	}
+	dialog.dialog("close");
 	
 	var label = tabName || "Tab " + tabCounter,
             id = "dashboard" + tabCounter,
@@ -528,9 +542,9 @@ $(function () {
 		if(tabsArray[i] != null){
 		  if(j == 0){
 		    j++;
-		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, true);
+		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, true, true);
 		  } else {
-		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, false);
+		    addTab(tabsArray[i].info, tabsArray[i].tabName, true, false, true);
 		  }
 		  
 		  //Initialize the startId.  
