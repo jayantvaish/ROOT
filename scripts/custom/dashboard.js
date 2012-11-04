@@ -383,13 +383,15 @@ $(function () {
 
     // close icon: removing the tab on click
     $("#tabs span.ui-icon-close").live("click", function () {
-        var tabName = $(this).closest("li").attr("name");
-	removeTab(tabName);
-	
-	var panelId = $(this).closest("li").remove().attr("aria-controls");
-        $("#" + panelId).remove();
-	tabs.tabs("refresh");
-        disableEnableLinks();
+	if(confirm(defaultMessages.deleteTabConfirmMessage)){
+	  var tabName = $(this).closest("li").attr("name");
+	  removeTab(tabName);
+	  
+	  var panelId = $(this).closest("li").remove().attr("aria-controls");
+	  $("#" + panelId).remove();
+	  tabs.tabs("refresh");
+	  disableEnableLinks();
+	}
     });
     
     //This will execute on page load.
@@ -585,4 +587,6 @@ function checkLayoutColumns(data){
   }
 }
 
-
+defaultMessages = {
+ deleteTabConfirmMessage: "Are you sure you want to delete this tab ?"         
+}
