@@ -476,7 +476,7 @@ $(function () {
     function persistTab(tabName){
 	  var newTab = {
 	      "tabName" : tabName,
-	      "info" : defaultData
+	      "info" : {"result" : {"layout": "layout2", "data" : [] }}
 	    };
 	  var stateDataInString = JSON.stringify(dsState);
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
