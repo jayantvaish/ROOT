@@ -354,15 +354,17 @@ $(function () {
 	} else {
 	    //check whether this name exist or not? It will make tabName unique. 
 	    var stateDataInJson = dsState;
-	    var tabsArray = stateDataInJson.tabs;
-	    var isAlreadyPresent = false;
-	    for (var i = 0; i < tabsArray.length; i++) {
-		if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
-		  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please enter another title, "' + tabName + '" exists.</a>');
-		  $('#tab_title').val("");
-		  messageDialog.dialog('open');
-		  return false;
-		}
+	    if(stateDataInJson != null && stateDataInJson != 'undefined'){
+	      var tabsArray = stateDataInJson.tabs;
+	      var isAlreadyPresent = false;
+	      for (var i = 0; i < tabsArray.length; i++) {
+		  if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
+		    messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please enter another title, "' + tabName + '" exists.</a>');
+		    $('#tab_title').val("");
+		    messageDialog.dialog('open');
+		    return false;
+		  }
+	      }
 	    }
 	}
 	dialog.dialog("close");
