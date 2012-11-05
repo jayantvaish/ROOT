@@ -40,6 +40,7 @@ var currentTabName;
 var isConsoleAccessible;
 var dashboardStateUrl = 'dsState.json';
 var dsState;
+var widgetArr = [];
 var defaultData = {
 "result" :
   {
@@ -202,14 +203,6 @@ $(function () {
     $('body').append('<div id="templates"></div>');
     $("#templates").hide();
     $("#templates").load("templates.html", initDashboard);
-
-//    $('#tabs').tabs({
-//        select: function (evt, ui) {
-//            currentTab = $(ui.panel).attr('id');
-//	    currentTabName = $(ui.panel).attr('name');
-//            currentDashboard = dashboardManager.getDashboard(currentTab);
-//        }
-//    });
 
     function initDashboard() {
         $("#tabs").tabs({
@@ -465,7 +458,11 @@ $(function () {
 	  var tabsArray = stateDataInJson.tabs;	    
 	  for (var i = 0; i < tabsArray.length; i++) {
 	      if(tabsArray[i] != null && tabsArray[i].tabName == tabName){
-		delete tabsArray[i];
+		var tabData = tabsArray[i].info.result.data;
+		for(var j = 0; j < tabData.length; j++){
+		  widgetArr.splice($.inArray(tabData[j].url, widgetArr),1);
+		}
+		tabsArray.splice($.inArray(tabsArray[i], tabsArray),1);
 		dsState = stateDataInJson;
 		saveDashboardStateData(JSON.stringify(dsState));
 		break;
