@@ -203,13 +203,13 @@ $(function () {
     $("#templates").hide();
     $("#templates").load("templates.html", initDashboard);
 
-    $('#tabs').tabs({
-        select: function (evt, ui) {
-            currentTab = $(ui.panel).attr('id');
-	    currentTabName = $(ui.panel).attr('name');
-            currentDashboard = dashboardManager.getDashboard(currentTab);
-        }
-    });
+//    $('#tabs').tabs({
+//        select: function (evt, ui) {
+//            currentTab = $(ui.panel).attr('id');
+//	    currentTabName = $(ui.panel).attr('name');
+//            currentDashboard = dashboardManager.getDashboard(currentTab);
+//        }
+//    });
 
     function initDashboard() {
         $("#tabs").tabs({
