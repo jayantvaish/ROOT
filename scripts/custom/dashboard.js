@@ -208,6 +208,11 @@ $(function () {
         $("#tabs").tabs({
             cache: true
         });
+		
+	$('.dmsaveDashboard').click(function () {
+	    persistLayoutChange(currentDashboard.serialize());
+            return false;
+        });
 
         $('.dmopenaddwidgetdialog').click(function () {
             // open the lightbox for active tab
@@ -569,10 +574,12 @@ function disableEnableLinks() {
     if (parseInt(count) != 0) {
         $('.dmopenaddwidgetdialog').fadeTo("fast", 10).attr("href", "#");
         $('.dmeditLayout').fadeTo("fast", 10).attr("href", "#");
+	$('.dmsaveDashboard').fadeTo("fast", 10).attr("href", "#");
 
     } else {
         $('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href");
         $('.dmeditLayout').fadeTo("fast", .5).removeAttr("href");
+	$('.dmsaveDashboard').fadeTo("fast", .5).attr("href", "#");
     }
 }
 
