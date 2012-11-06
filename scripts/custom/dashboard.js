@@ -257,7 +257,7 @@ $(function () {
         });
 		
 	$('.dmsaveDashboard').click(function () {
-	    persistLayoutChange(currentDashboard.serialize());
+	    persistLayoutChange(currentDashboard.serialize(), true);
             return false;
         });
 
@@ -281,7 +281,7 @@ $(function () {
 	$('.column').live('widgetDropped', function () {
 	    if (currentDashboard != null) {
 		setTimeout(function(){
-		    persistLayoutChange(currentDashboard.serialize());
+		    persistLayoutChange(currentDashboard.serialize(), false);
 		},500);
             }
             return false;
@@ -290,7 +290,7 @@ $(function () {
 	//persist when layout changed.
 	$('.layoutchoice').live('click', function () {
 	    if (currentDashboard != null) {
-		persistLayoutChange(currentDashboard.serialize());
+		persistLayoutChange(currentDashboard.serialize(), false);
             }
             return false;
         });
@@ -298,7 +298,7 @@ $(function () {
 	//persist when widget deleted.
 	$('.delete').live('click', function () {
 	    setTimeout(function(){
-		persistLayoutChange(currentDashboard.serialize());
+		persistLayoutChange(currentDashboard.serialize(), false);
 	    },500);
         });
 
@@ -386,6 +386,7 @@ $(function () {
 	//dialog to show tab title mandatory
 	
         if(tabName=="" || tabName==undefined){
+	  messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
 	  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">'+ defaults.tabTitleMessage1 +'</a>');
 	  
 	  messageDialog.dialog('open');
@@ -398,6 +399,7 @@ $(function () {
 	      var isAlreadyPresent = false;
 	      for (var i = 0; i < tabsArray.length; i++) {
 		  if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
+		    messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
 		    messageDialog.html('<a style="font-family: verdana;font-size: 13px;">'+ defaults.tabTitleMessage2 +'"' + tabName + '" exists.</a>');
 		    $('#tab_title').val("");
 		    messageDialog.dialog('open');
@@ -454,7 +456,7 @@ $(function () {
         getDashboardStateData();
     });
     
-    function persistLayoutChange(tabInfoResult){
+    function persistLayoutChange(tabInfoResult, showMessage){
 	var stateDataInJson = dsState;
 	var tabsArray = stateDataInJson.tabs;	    
 	for (var i = 0; i < tabsArray.length; i++) {
@@ -464,7 +466,7 @@ $(function () {
 	      checkLayoutColumns(tabInfoResultInJson);
 	      tabsArray[i].info.result = tabInfoResultInJson;
 	      dsState = stateDataInJson;
-	      saveDashboardStateData(JSON.stringify(dsState));
+	      saveDashboardStateData(JSON.stringify(dsState), showMessage);
 	      break;
 	    }
 	}
@@ -510,7 +512,7 @@ $(function () {
 		}
 		tabsArray.splice($.inArray(tabsArray[i], tabsArray),1);
 		dsState = stateDataInJson;
-		saveDashboardStateData(JSON.stringify(dsState));
+		saveDashboardStateData(JSON.stringify(dsState), false);
 		break;
 	      }
 	  }
@@ -530,10 +532,10 @@ $(function () {
 	  } else {
 	    dsState = {"tabs" :[newTab]}
 	  }
-	  saveDashboardStateData(JSON.stringify(dsState));
+	  saveDashboardStateData(JSON.stringify(dsState), false);
     }
     
-    function saveDashboardStateData(jsonString){
+    function saveDashboardStateData(jsonString, showMessage){
       $.ajax({
 	  url: dashboardStateUrl,
 	  cache:false,
@@ -544,14 +546,20 @@ $(function () {
 		jsonString: jsonString
 	  },
 	  error:function(e){
+		  messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
 		  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
 		  messageDialog.dialog('open');
 	  },
 	  success: function (data) {
 		  if(data.response!=undefined && data.response!="" && data.response!="OK")
 		  {
-				messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
-				messageDialog.dialog('open');
+		      messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
+		      messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
+		      messageDialog.dialog('open');
+		  } else if(showMessage){
+		      messageDialog.dialog( "option", "title", defaults.infoDialogTitle );
+		      messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.dashboardSaveMessage + '</a>');
+		      messageDialog.dialog('open');
 		  }
 		}
       });
@@ -681,5 +689,7 @@ defaults = {
  tabTitleMessage1: "Please enter tab title",
  tabTitleMessage2: "Please enter another title ",
  loadingHtml: '<div class="loading"><img alt="Loading, please wait" src="images/loading.gif" /><p>Loading...</p></div>',
-        
+ dashboardSaveMessage: "Dashboard saved succesfully.",
+ infoDialogTitle: "Info", 
+ warningDialogTitle: "Warning"       
 }

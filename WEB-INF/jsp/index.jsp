@@ -104,7 +104,7 @@
                     </div>
                     <div id="templates"></div>
 					<input type="hidden" name="accessible" id="accessible"/>
-					<div id="messageDialog" title="Warning">
+					<div id="messageDialog">
 					</div>
                 </form>
             </body>
