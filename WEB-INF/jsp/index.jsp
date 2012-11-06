@@ -64,17 +64,22 @@
                             <fmt:message key="com_intalio_bpms_dashboard_bam" />
                         </label>&nbsp;</div>
                     <div style="margin-top:-30px;float:right;margin-right:10px;">
-                        <button id="userProfile"></button>
+				<button id="options"><fmt:message key="com_intalio_bpms_dashboard_options" /></button>                        
+				<button id="userProfile"></button>
                     </div>
                     <div id="div1" class="io-footer" style="float:right"></div>
-                    <div class="headerlinks"> <a class="addtab headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_tab"/></a>&nbsp;
-                        <span
-                        class="headerlink">|</span>&nbsp;	<a class="dmopenaddwidgetdialog headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_widget"/></a>&nbsp;
-                            <span
-                            class="headerlink">|</span>&nbsp; <a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a>
+		    <div id="div2" class="io-footer-options" style="float:right"></div>
 
+                    <div class="optionContent" style="display:none"> 
+			<a class="addtab headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_tab"/></a>&nbsp;
+                        &nbsp;</br></br>
+			<a class="dmopenaddwidgetdialog headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_widget"/></a>&nbsp;
+                        &nbsp;</br></br>
+			<a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a></br></br>
+			<a class="dmsaveDashboard headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/></a>
                     </div>
-                    <div class="tooltipContent" style="float:center;display:none;margin-left:-6px;margin-top:-2px;">
+
+                    <div class="tooltipContent" style="float:center;display:none;margin-left:-4px;margin-top:-2px;">
                         <button id="btnHelp" style="width:80px">
                             <fmt:message key="com_intalio_bpms_dashboard_help"/>
                         </button>
@@ -83,7 +88,7 @@
                             <fmt:message key="com_intalio_bpms_console_pageHeader_logout"/>
                         </button>
                     </div>
-                    <div id="dialog" title="Add Tab">
+                    <div id="dialog" title="Add Tab" style="display:none;">
                         <form>
                             <fieldset class="ui-helper-reset">
                                 <label for="tab_title">
@@ -99,10 +104,7 @@
                     </div>
                     <div id="templates"></div>
 					<input type="hidden" name="accessible" id="accessible"/>
-					<div id="notaccessible" title="Warning" style="display:none;font-size:14px;font-family:verdana"">
-					<label><fmt:message key="com_intalio_bpms_dashboard_notaccdialog_content"/><label/>
-					</div>
-					<div id="messageDialog" title="Message">
+					<div id="messageDialog" title="Warning">
 					</div>
                 </form>
             </body>

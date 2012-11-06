@@ -134,10 +134,18 @@ $(function () {
     $("button:first").button({
         icons: {
             primary: "ui-icon-gear",
-            secondary: "ui-icon-triangle-1-s"
+            
         }
+    }).next().button({
+	icons: {
+	    primary: "ui-icon-gear",
+	    secondary: "ui-icon-triangle-1-s"
+	}
     });
     $('.io-footer').each(function () {
+        showMyTT($(this).attr('id'));
+    })
+    $('.io-footer-options').each(function () {
         showMyTT($(this).attr('id'));
     })
     $("#userProfile")
@@ -146,23 +154,59 @@ $(function () {
         toggleQtip('div1');
         return false;
     });
+    $("#options")
+        .button()
+        .click(function () {
+        toggleQtip('div2');
+        return false;
+    });
 
+	//Message Dialog initialization
+	$("#messageDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		resizable: false,
+		close: function () {
+		$(this).dialog("close");
+		}
+	});
     function showMyTT(id) {
-        $('#' + id).qtip({
-            content: $('.tooltipContent'),
-            position: {
-                my: 'top center',
-                at: 'bottom right',
-                adjust: {
-                    x: 87,
-                    y: 8
-                },
-                viewport: $(window),
+	if(id == "div1")
+	{
+		$('#' + id).qtip({
+		    content: $('.tooltipContent'),
+		    position: {
+		        my: 'top center',
+		        at: 'bottom right',
+		        adjust: {
+		            x: 176,
+		            y: 8
+		        },
+		        viewport: $(window),
 
-            },
-            show: false,
-            hide: false,
-        });
+		    },
+		    show: false,
+		    hide: false,
+		});
+	}
+	else if(id == "div2")
+	{
+		$('#' + id).qtip({
+		    content: $('.optionContent'),
+		    position: {
+		        my: 'top center',
+		        at: 'bottom right',
+		        adjust: {
+		            x: 48,
+		            y: 8
+		        },
+		        viewport: $(window),
+
+		    },
+		    show: false,
+		    hide: false,
+		});
+	}
     }
     var url = './data.json?filter=1d';
     $.ajax({
@@ -178,6 +222,9 @@ $(function () {
             else
             {
 				$("#userProfile span").text(data.currentUser);
+				if(data.currentUser.indexOf('admin') >= 0)
+					$('[for=radio1]').css('disabled','false');
+				else $("[for=radio1]").css('display','none');
 				$("#accessible").val(data.isConsoleAccessible);
 				isConsoleAccessible = data.isConsoleAccessible;
 			}	
@@ -337,17 +384,11 @@ $(function () {
     // actual addTab function: adds new tab using the input from the form above
     function addTab(jsonData, tabName, istabExist, isFirstTab, isLoading) {
 	//dialog to show tab title mandatory
-	var messageDialog = $("#messageDialog").dialog({
-			autoOpen: false,
-			modal: true,
-			resizable: false,
-			close: function () {
-			$(this).dialog("close");
-			}
-	});
+	
         if(tabName=="" || tabName==undefined){
-	  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please Enter Tab Title</a>');
-	  messageDialog.dialog('open');
+	  $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">'+ defaultMessages.tabTitleMessage1 +'</a>');
+	  
+	  $('#messageDialog').dialog('open');
 	  return false;	  
 	} else {
 	    //check whether this name exist or not? It will make tabName unique. 
@@ -357,9 +398,9 @@ $(function () {
 	      var isAlreadyPresent = false;
 	      for (var i = 0; i < tabsArray.length; i++) {
 		  if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
-		    messageDialog.html('<a style="font-family: verdana;font-size: 13px;">Please enter another title, "' + tabName + '" exists.</a>');
+		    $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">'+ defaultMessages.tabTitleMessage2 +'"' + tabName + '" exists.</a>');
 		    $('#tab_title').val("");
-		    messageDialog.dialog('open');
+		    $('#messageDialog').dialog('open');
 		    return false;
 		  }
 	      }
@@ -503,9 +544,16 @@ $(function () {
 		jsonString: jsonString
 	  },
 	  error:function(e){
+		  $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">' + defaultMessages.errorMessageOnSavingState + '</a>');
+		  $('#messageDialog').dialog('open');
 	  },
 	  success: function (data) {
-	  }
+		  if(data.response!=undefined && data.response!="" && data.response!="OK")
+		  {
+				$('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">' + defaultMessages.errorMessageOnSavingState + '</a>');
+				$('#messageDialog').dialog('open');
+		  }
+		}
       });
     }
 
@@ -579,7 +627,7 @@ function disableEnableLinks() {
     } else {
         $('.dmopenaddwidgetdialog').fadeTo("fast", .5).removeAttr("href");
         $('.dmeditLayout').fadeTo("fast", .5).removeAttr("href");
-	$('.dmsaveDashboard').fadeTo("fast", .5).attr("href", "#");
+	$('.dmsaveDashboard').fadeTo("fast", .5).removeAttr("href");
     }
 }
 
@@ -610,14 +658,26 @@ function checkLayoutColumns(data){
 function reDrawTabsData(currentDashboard)
 {
 	currentDashboard.element.find(".widget").each(function () {
-		var nWidget = currentDashboard.getWidget($(this).attr("id"));
-		nWidget.element.trigger("widgetRefresh", {
-				widget: nWidget
-			});
-		});    
-				
+			var nWidget = currentDashboard.getWidget($(this).attr("id"));
+			if(nWidget.url=="widgets/ws_response_time.jsp" || nWidget.url=="widgets/instance_status_cnt.jsp"){
+					window.setTimeout(function () {
+					nWidget.element.trigger("widgetRefresh", {
+							widget: nWidget
+						});
+					}, 500); 
+			}
+			else{
+			nWidget.element.trigger("widgetRefresh", {
+					widget: nWidget
+				});
+			}
+	});	
 }
 
 defaultMessages = {
- deleteTabConfirmMessage: "Are you sure you want to delete this tab ?"         
+ deleteTabConfirmMessage	: "Are you sure you want to delete this tab ?",
+ errorMessageOnSavingState 	: "Unable to save the dashboard state. Please refresh the browser.",
+ chartNotAccessibleMessage 	: "Chart is not accessible to you",
+ tabTitleMessage1		   	: "Please enter tab title",
+ tabTitleMessage2		   	: "Please enter another title "    
 }

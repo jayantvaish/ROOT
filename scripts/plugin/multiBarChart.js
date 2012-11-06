@@ -43,7 +43,7 @@ nv.models.multiBarChart = function() {
     ;
   yAxis
     .orient('left')
-    .tickFormat(d3.format(',.1f'))
+    .tickFormat(d3.format(',100'))
     ;
 
   //============================================================
@@ -54,8 +54,8 @@ nv.models.multiBarChart = function() {
   //------------------------------------------------------------
 
   var showTooltip = function(e, offsetElement) {
-    var left = e.pos[0] + ( offsetElement.offsetLeft || 0 ),
-        top = e.pos[1] + ( offsetElement.offsetTop || 0),
+    var left = e.pos[0] + ( 45 || 0 ),
+        top = e.pos[1] + (parseInt(110) || 0),
         x = xAxis.tickFormat()(multibar.x()(e.point, e.pointIndex)),
         y = yAxis.tickFormat()(multibar.y()(e.point, e.pointIndex)),
         content = tooltip(e.series.key, x, y, e, chart);
@@ -83,7 +83,7 @@ nv.models.multiBarChart = function() {
       //------------------------------------------------------------
       // Display noData message if there's nothing to show.
 
-      if (!data || !data.length || !data.filter(function(d) { console.log('values length -- ' +d.values.length);return d.values.length }).length) {
+      if (!data || !data.length || !data.filter(function(d) { return d.values.length }).length) {
         var noDataText = container.selectAll('.nv-noData').data([noData]);
 
         noDataText.enter().append('text')

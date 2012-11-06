@@ -57,11 +57,12 @@ function createWsResTimeChartData(data)
 			var  arr1 = new Array();
 			var  arr2 = new Array();
 			var seconds = (parseInt(data.wsResTime[key].resTime) / 1000);
+			var count   = parseInt(data.wsResTime[key].operationCount);
 			if(parseInt(seconds)>0){
 				arr2[0] = data.wsResTime[key].serviceName;
-				arr2[1] = seconds;
+				arr2[1] = parseInt(seconds);
 				arr1[0] = data.wsResTime[key].serviceName;
-				arr1[1] = parseInt(data.wsResTime[key].operationCount);
+				arr1[1] = parseInt(count);
 				hashMapCountArr[rowCnt] = arr1;
 				hashMapTimeArr[rowCnt] = arr2;
 				rowCnt++;
@@ -106,9 +107,8 @@ function createWsResTimeChart(data)
 	chart.y2Axis.tickFormat(function(d) { return d3.format(',100')(d) });
     chart.bars.forceY([0]);
     d3.select('#chart6 svg')
-      .datum(data)
-      .transition().duration(500).call(chart);
-      nv.utils.windowResize(chart.update);
+    .datum(data)
+    .transition().duration(500).call(chart);
     return chart;
 	});
 }

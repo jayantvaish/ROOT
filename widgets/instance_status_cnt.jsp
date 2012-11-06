@@ -48,16 +48,12 @@ function addMultiBarGraph(dataObj)//array defining layers, number of processes, 
 {
 	nv.addGraph(function() {
      
-    	var chart = nv.models.multiBarChart()
-      		.x(function(d) { return d.label})
+    var chart = nv.models.multiBarChart()
+    .x(function(d) { return d.label})
       		.y(function(d) { return parseInt(d.value)});
 	chart.xAxis.axisLabel('Processes');
         chart.yAxis.axisLabel('Instance Count');
       	chart.color(['#1f77b4','#aec7e8','#ff7f0e','#FFD6AD']);
-
-	chart.xAxis.showMaxMin(false);
-    	chart.yAxis.showMaxMin(false);
-	  
 	chart.yAxis
        		.tickFormat(d3.format(',0.01f'));
         
