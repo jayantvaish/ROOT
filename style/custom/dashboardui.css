@@ -285,6 +285,18 @@ ol.widgets {
   margin:10px 0 0 -132px;
 }
 
+#loaderDiv
+{
+   background: url(../../images/loading.gif) no-repeat center center;
+   height: 100px;
+   width: 100px;
+   position: fixed;
+   z-index: 1000;
+   left: 50%;
+   top: 50%;
+   margin: -25px 0 0 -25px;
+}
+
 #dialog label, #dialog input { display:block; }
 #dialog label { margin-top: 0.5em; }
 #dialog input, #dialog textarea { width: 95%; }

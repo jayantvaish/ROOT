@@ -214,7 +214,7 @@ $(function () {
         cache: false,
         async: false,
         dataType: 'json',
-        error: function (e) {
+	error: function (e) {
         },
         success: function (data) {
             if(data.currentUser == undefined || data.currentUser == null || $.trim(data.currentUser) =='' )
@@ -280,8 +280,10 @@ $(function () {
 	//persist when widget dnd.
 	$('.column').live('widgetDropped', function () {
 	    if (currentDashboard != null) {
+		showLoader();
 		setTimeout(function(){
 		    persistLayoutChange(currentDashboard.serialize(), false);
+		    hideLoader();
 		},500);
             }
             return false;
@@ -297,9 +299,13 @@ $(function () {
 	
 	//persist when widget deleted.
 	$('.delete').live('click', function () {
-	    setTimeout(function(){
-		persistLayoutChange(currentDashboard.serialize(), false);
-	    },500);
+	    if (currentDashboard != null) {
+	      showLoader();
+	      setTimeout(function(){
+		  persistLayoutChange(currentDashboard.serialize(), false);
+		  hideLoader();
+	      },500);
+	    }
         });
 
 	//Add and persist widget.
@@ -456,6 +462,10 @@ $(function () {
         getDashboardStateData();
     });
     
+    $(window).load(function(){
+	hideLoader();
+    });
+    
     function persistLayoutChange(tabInfoResult, showMessage){
 	var stateDataInJson = dsState;
 	var tabsArray = stateDataInJson.tabs;	    
@@ -545,12 +555,15 @@ $(function () {
 		action: "saveState",
 		jsonString: jsonString
 	  },
+	  beforeSend: showLoader(),
 	  error:function(e){
+		  hideLoader();
 		  messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
 		  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
 		  messageDialog.dialog('open');
 	  },
 	  success: function (data) {
+		  hideLoader();
 		  if(data.response!=undefined && data.response!="" && data.response!="OK")
 		  {
 		      messageDialog.dialog( "option", "title", defaults.warningDialogTitle );
@@ -682,6 +695,15 @@ function reDrawTabsData(currentDashboard)
 	});	
 }
 
+function hideLoader(){
+ document.getElementById(defaults.loaderDiv).style.visibility = 'hidden'; 
+}
+
+function showLoader(){
+ document.getElementById(defaults.loaderDiv).style.visibility = 'visible'; 
+}
+
+
 defaults = {
  deleteTabConfirmMessage: "Are you sure you want to delete this tab ?",
  errorMessageOnSavingState: "Unable to save the dashboard state. Please refresh the browser.",
@@ -691,5 +713,6 @@ defaults = {
  loadingHtml: '<div class="loading"><img alt="Loading, please wait" src="images/loading.gif" /><p>Loading...</p></div>',
  dashboardSaveMessage: "Dashboard saved succesfully.",
  infoDialogTitle: "Info", 
- warningDialogTitle: "Warning"       
+ warningDialogTitle: "Warning",
+ loaderDiv: "loaderDiv"
 }

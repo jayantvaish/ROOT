@@ -103,9 +103,10 @@
                         <ul id="tablist"></ul>
                     </div>
                     <div id="templates"></div>
-					<input type="hidden" name="accessible" id="accessible"/>
-					<div id="messageDialog">
-					</div>
+		    <input type="hidden" name="accessible" id="accessible"/>
+		    <div id="messageDialog">
+		    </div>
+		    <div id="loaderDiv"></div>
                 </form>
             </body>
         
