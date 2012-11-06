@@ -600,6 +600,17 @@ function checkLayoutColumns(data){
   }
 }
 
+function reDrawTabsData(currentDashboard)
+{
+	currentDashboard.element.find(".widget").each(function () {
+		var nWidget = currentDashboard.getWidget($(this).attr("id"));
+		nWidget.element.trigger("widgetRefresh", {
+				widget: nWidget
+			});
+		});    
+				
+}
+
 defaultMessages = {
  deleteTabConfirmMessage: "Are you sure you want to delete this tab ?"         
 }

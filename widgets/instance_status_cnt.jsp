@@ -53,8 +53,7 @@ function addMultiBarGraph(dataObj)//array defining layers, number of processes, 
       		.y(function(d) { return parseInt(d.value)});
 	chart.xAxis.axisLabel('Processes');
         chart.yAxis.axisLabel('Instance Count');
-      	chart.xAxis.rotateLabels(1);
-	chart.color(['#1f77b4','#aec7e8','#ff7f0e','#FFD6AD']);
+      	chart.color(['#1f77b4','#aec7e8','#ff7f0e','#FFD6AD']);
 
 	chart.xAxis.showMaxMin(false);
     	chart.yAxis.showMaxMin(false);
@@ -116,19 +115,19 @@ function createMultiBarChartData(data)
 		});
 
 		editeditems.push({
-            		key: "inProgress",
+            		key: "InProgress",
             		values: statusArray0
         	});
 		editeditems.push({
-            		key: "suspended",
+            		key: "Suspended",
             		values: statusArray1
         	});
 		editeditems.push({
-            		key: "terminated",
+            		key: "Terminated",
             		values: statusArray2
         	});
 		editeditems.push({
-            		key: "failed",
+            		key: "Failed",
             		values: statusArray3
         	});
 				
@@ -140,7 +139,7 @@ function createMultiBarChartData(data)
 </head>	
 <body>
 <div id="processdashlet4">
-		<div id="chart2" style="position:relative; padding-top:1%" >
+		<div id="chart2" style="position:relative; padding-top:1%;" >
     			<svg style="word-wrap: break-word;"></svg>
   		</div>
 	</div>

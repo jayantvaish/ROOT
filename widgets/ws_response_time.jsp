@@ -68,12 +68,12 @@ function createWsResTimeChartData(data)
 			}
 		});
 		finDataArr.push({
-				key:"Time Taken To Respond",
+				key:"Response Time",
 				bar : true,
 				values : hashMapTimeArr
 			});
 		finDataArr.push({
-				key:"No of Times called",
+				key:"No of Calls",
 				values : hashMapCountArr
 			});
 		finDataArr.map(function(series) {
@@ -101,7 +101,7 @@ function createWsResTimeChart(data)
       return dx;
     });
     chart.xAxis.axisLabel('WebServices');
-    chart.y1Axis.axisLabel('Time (Seconds)');
+    chart.y1Axis.axisLabel('Time(s)');
 	chart.y1Axis.tickFormat(d3.format(',100'));
 	chart.y2Axis.tickFormat(function(d) { return d3.format(',100')(d) });
     chart.bars.forceY([0]);

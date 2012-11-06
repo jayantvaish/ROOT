@@ -12,15 +12,15 @@
     },
     {
       "id" : "cat-1-02",
-      "title" : "Processes-Instances Status Count",
-      "description" : "Processes-Instances Status Count",
+      "title" : "Instance Status",
+      "description" : "Instance Status",
       "creator" : "Intalio Inc",
       "url" : "widgets/instance_status_cnt.jsp",
       "image": "images/process_instance_count.png"
     },
     {
       "id" : "cat-1-03",
-      "title" : "WS Response Time",
+      "title" : "Webservice Response",
       "description" : "Average time taken by service calls.",
       "creator" : "Intalio Inc",
       "url" : "widgets/ws_response_time.jsp",

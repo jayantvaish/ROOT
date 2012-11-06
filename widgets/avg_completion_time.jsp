@@ -85,7 +85,7 @@ function createAvgProcessCompTimeChart(data)
       chart.xAxis.showMaxMin(false);
       chart.yAxis.showMaxMin(false);
       chart.xAxis.axisLabel('Processes');
-      chart.yAxis.axisLabel('Time (seconds)');
+      chart.yAxis.axisLabel('Time(s)');
 	d3.select('#chart1 svg')
       .datum(data)
 	  .transition().duration(500)

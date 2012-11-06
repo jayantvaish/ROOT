@@ -147,6 +147,7 @@ nv.models.multiBarChart = function() {
           availableHeight = (height || parseInt(container.style('height')) || 400)
                              - margin.top - margin.bottom;
         }
+	else margin.top = 50;
 
         g.select('.nv-legendWrap')
             .attr('transform', 'translate(' + (availableWidth / 2) + ',' + (-margin.top) +')');
