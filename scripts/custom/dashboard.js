@@ -162,7 +162,7 @@ $(function () {
     });
 
 	//Message Dialog initialization
-	$("#messageDialog").dialog({
+    var messageDialog = $("#messageDialog").dialog({
 		autoOpen: false,
 		modal: true,
 		resizable: false,
@@ -386,9 +386,9 @@ $(function () {
 	//dialog to show tab title mandatory
 	
         if(tabName=="" || tabName==undefined){
-	  $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">'+ defaultMessages.tabTitleMessage1 +'</a>');
+	  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">'+ defaults.tabTitleMessage1 +'</a>');
 	  
-	  $('#messageDialog').dialog('open');
+	  messageDialog.dialog('open');
 	  return false;	  
 	} else {
 	    //check whether this name exist or not? It will make tabName unique. 
@@ -398,9 +398,9 @@ $(function () {
 	      var isAlreadyPresent = false;
 	      for (var i = 0; i < tabsArray.length; i++) {
 		  if(tabsArray[i] != null && tabsArray[i].tabName == tabName && !isLoading){
-		    $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">'+ defaultMessages.tabTitleMessage2 +'"' + tabName + '" exists.</a>');
+		    messageDialog.html('<a style="font-family: verdana;font-size: 13px;">'+ defaults.tabTitleMessage2 +'"' + tabName + '" exists.</a>');
 		    $('#tab_title').val("");
-		    $('#messageDialog').dialog('open');
+		    messageDialog.dialog('open');
 		    return false;
 		  }
 	      }
@@ -438,7 +438,7 @@ $(function () {
 
     // close icon: removing the tab on click
     $("#tabs span.ui-icon-close").live("click", function () {
-	if(confirm(defaultMessages.deleteTabConfirmMessage)){
+	if(confirm(defaults.deleteTabConfirmMessage)){
 	  var tabName = $(this).closest("li").attr("name");
 	  removeTab(tabName);
 	  
@@ -544,14 +544,14 @@ $(function () {
 		jsonString: jsonString
 	  },
 	  error:function(e){
-		  $('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">' + defaultMessages.errorMessageOnSavingState + '</a>');
-		  $('#messageDialog').dialog('open');
+		  messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
+		  messageDialog.dialog('open');
 	  },
 	  success: function (data) {
 		  if(data.response!=undefined && data.response!="" && data.response!="OK")
 		  {
-				$('#messageDialog').html('<a style="font-family: verdana;font-size: 13px;">' + defaultMessages.errorMessageOnSavingState + '</a>');
-				$('#messageDialog').dialog('open');
+				messageDialog.html('<a style="font-family: verdana;font-size: 13px;">' + defaults.errorMessageOnSavingState + '</a>');
+				messageDialog.dialog('open');
 		  }
 		}
       });
@@ -674,10 +674,12 @@ function reDrawTabsData(currentDashboard)
 	});	
 }
 
-defaultMessages = {
- deleteTabConfirmMessage	: "Are you sure you want to delete this tab ?",
- errorMessageOnSavingState 	: "Unable to save the dashboard state. Please refresh the browser.",
- chartNotAccessibleMessage 	: "Chart is not accessible to you",
- tabTitleMessage1		   	: "Please enter tab title",
- tabTitleMessage2		   	: "Please enter another title "    
+defaults = {
+ deleteTabConfirmMessage: "Are you sure you want to delete this tab ?",
+ errorMessageOnSavingState: "Unable to save the dashboard state. Please refresh the browser.",
+ chartNotAccessibleMessage: "Chart is not accessible to you",
+ tabTitleMessage1: "Please enter tab title",
+ tabTitleMessage2: "Please enter another title ",
+ loadingHtml: '<div class="loading"><img alt="Loading, please wait" src="images/loading.gif" /><p>Loading...</p></div>',
+        
 }
