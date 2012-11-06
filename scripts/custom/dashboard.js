@@ -221,12 +221,12 @@ $(function () {
 			submitActionToURL('login.htm','logOut');
             else
             {
+				isConsoleAccessible = data.isConsoleAccessible;
 				$("#userProfile span").text(data.currentUser);
-				if(data.currentUser.indexOf('admin') >= 0)
+				if(isConsoleAccessible == "true")
 					$('[for=radio1]').css('disabled','false');
 				else $("[for=radio1]").css('display','none');
-				$("#accessible").val(data.isConsoleAccessible);
-				isConsoleAccessible = data.isConsoleAccessible;
+				$("#accessible").val(isConsoleAccessible);
 			}	
         }
 
