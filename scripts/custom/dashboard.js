@@ -20,13 +20,24 @@ function submitActionToURL(url, actionName) {
 
 function toggleQtip(id) {
     var div = $('#' + id);
-    if (div.data('visible')) {
-        div.qtip('hide');
-        div.data('visible', false);
-    } else {
-        div.qtip('show');
-        div.data('visible', true);
-    }
+    hide(id);
+    show(id);
+}
+
+function hide(id){
+  var div = $('#' + id);
+  if (div.data('visible')) {
+      div.qtip('hide');
+      div.data('visible', false);
+  }
+}
+
+function show(id){
+ var div = $('#' + id);
+  if (!div.data('visible')) {
+    div.qtip('show');
+    div.data('visible', true); 
+  }
 }
 
 var tabCounter = 1;
@@ -131,17 +142,17 @@ $(function () {
         document.location.href = './bam/reports.htm';
         return false;
     });
-    $("button:first").button({
-        icons: {
-            primary: "ui-icon-gear",
-            
-        }
-    }).next().button({
+    $( "button:first" ).button({
 	icons: {
-	    primary: "ui-icon-gear",
-	    secondary: "ui-icon-triangle-1-s"
+		primary: "ui-icon-gear",
+		secondary: "ui-icon-triangle-1-s"
+	},
+	text: false
+	}).next().button({
+	icons: {
+		secondary: "ui-icon-triangle-1-s"
 	}
-    });
+	});
     $('.io-footer').each(function () {
         showMyTT($(this).attr('id'));
     })
@@ -179,7 +190,7 @@ $(function () {
 		        my: 'top center',
 		        at: 'bottom right',
 		        adjust: {
-		            x: 176,
+		            x: 120,
 		            y: 8
 		        },
 		        viewport: $(window),
@@ -197,7 +208,7 @@ $(function () {
 		        my: 'top center',
 		        at: 'bottom right',
 		        adjust: {
-		            x: 48,
+		            x: 35,
 		            y: 8
 		        },
 		        viewport: $(window),
@@ -214,7 +225,7 @@ $(function () {
         cache: false,
         async: false,
         dataType: 'json',
-	error: function (e) {
+        error: function (e) {
         },
         success: function (data) {
             if(data.currentUser == undefined || data.currentUser == null || $.trim(data.currentUser) =='' )
@@ -464,6 +475,10 @@ $(function () {
     
     $(window).load(function(){
 	hideLoader();
+	$('*').live('click', function(){
+	    hide('div1');
+	    hide('div2');
+	});
     });
     
     function persistLayoutChange(tabInfoResult, showMessage){

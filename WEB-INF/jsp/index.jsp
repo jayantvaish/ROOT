@@ -64,20 +64,24 @@
                             <fmt:message key="com_intalio_bpms_dashboard_bam" />
                         </label>&nbsp;</div>
                     <div style="margin-top:-30px;float:right;margin-right:10px;">
-				<button id="options"><fmt:message key="com_intalio_bpms_dashboard_options" /></button>                        
+				<button id="options" >Options</button>                        
 				<button id="userProfile"></button>
+				
                     </div>
                     <div id="div1" class="io-footer" style="float:right"></div>
 		    <div id="div2" class="io-footer-options" style="float:right"></div>
 
                     <div class="optionContent" style="display:none"> 
+			<table id="optionTable">
+			<tr><td>
 			<a class="addtab headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_tab"/></a>&nbsp;
-                        &nbsp;</br></br>
-			<a class="dmopenaddwidgetdialog headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_widget"/></a>&nbsp;
-                        &nbsp;</br></br>
-			<a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a></br></br>
-			<a class="dmsaveDashboard headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/></a>
-                    </div>
+                        &nbsp;</td></tr>
+			<tr><td><a class="dmopenaddwidgetdialog headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_widget"/></a>&nbsp;
+                        &nbsp;</td></tr>
+			<tr><td><a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a></td></tr>
+			<tr><td><a class="dmsaveDashboard headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/></a></td></tr>
+                    	</table>
+		    </div>
 
                     <div class="tooltipContent" style="float:center;display:none;margin-left:-4px;margin-top:-2px;">
                         <button id="btnHelp" style="width:80px">
