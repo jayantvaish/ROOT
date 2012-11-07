@@ -604,7 +604,7 @@ $(function () {
 
 
     function getDashboardStateData(){
-      $.getJSON(dashboardStateUrl + '?action=getState', function(data) {
+      $.getJSON(dashboardStateUrl + '?action=getState&ignore_cache=' + new Date().getTime(), function(data) {
 	  var stateDataInString = data.dsState.ds_state;
 	  if(typeof stateDataInString != "undefined" && stateDataInString != "" && stateDataInString != null){
 	    var stateDataInJson = jQuery.parseJSON(stateDataInString);	
