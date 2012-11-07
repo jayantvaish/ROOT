@@ -710,7 +710,6 @@ defaults = {
  chartNotAccessibleMessage: "Chart is not accessible to you",
  tabTitleMessage1: "Please enter tab title",
  tabTitleMessage2: "Please enter another title ",
- loadingHtml: '<div class="loading"><img alt="Loading, please wait" src="images/loading.gif" /><p>Loading...</p></div>',
  dashboardSaveMessage: "Dashboard saved succesfully.",
  infoDialogTitle: "Info", 
  warningDialogTitle: "Warning",
