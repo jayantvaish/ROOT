@@ -33,7 +33,14 @@ function hide(id){
 }
 
 function show(id){
- var div = $('#' + id);
+  var div = $('#' + id);
+  var div1 = 'div1';
+  var div2 = 'div2';
+  if(id == div1){
+    hide(div2); 
+  } else if(id == div2){
+    hide(div1); 
+  }
   if (!div.data('visible')) {
     div.qtip('show');
     div.data('visible', true); 
