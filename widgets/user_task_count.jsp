@@ -52,8 +52,8 @@ function displayUserwiseTaskGraph(dataObj)
       .y(function(d) { return d.value })
       .margin({top: 30, right: 20, bottom: 50, left: 175})
       .showValues(true)
-      .tooltips(false)
-      .showControls(false);
+      .tooltips(true)
+      .showControls(true);
 
   chart.yAxis
       .tickFormat(d3.format(',.2f'));
