@@ -1,10 +1,10 @@
+<%@page  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
         <html>
             
             <head>
-                <meta charset="utf-8">
                 <title>Intalio|BPMS-DashBoard</title>
                 <script type="text/javascript" src="scripts/plugin/jquery-1.8.2.js"></script>
                 <script type="text/javascript" src="scripts/plugin/jquery-ui.js"></script>
