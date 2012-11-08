@@ -717,9 +717,9 @@ function reDrawTabsData(currentDashboard)
 	});	
 }
 
-function disableWidget(obj){
-  obj.attr('value','Added');
-  obj.attr('disabled','disabled');
+function disableWidget(obj, value){
+  obj.attr('value', value);
+  obj.attr('disabled', 'disabled');
 }
 
 function hideLoader(){
