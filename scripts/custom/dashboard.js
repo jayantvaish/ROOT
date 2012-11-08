@@ -717,6 +717,11 @@ function reDrawTabsData(currentDashboard)
 	});	
 }
 
+function disableWidget(obj){
+  obj.attr('value','Added');
+  obj.attr('disabled','disabled');
+}
+
 function hideLoader(){
  document.getElementById(defaults.loaderDiv).style.visibility = 'hidden'; 
 }
