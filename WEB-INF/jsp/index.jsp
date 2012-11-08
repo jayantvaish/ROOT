@@ -98,7 +98,7 @@
                                 <label for="tab_title">
                                     <fmt:message key="com_intalio_bpms_dashboard_tab_title" />
                                 </label>
-                                <input type="text" name="tab_title" id="tab_title" value="" class="ui-widget-content ui-corner-all"
+                                <input type="text" name="tab_title" id="tab_title" value=""  maxlength="25"  class="ui-widget-content ui-corner-all"
                                 />
                             </fieldset>
                         </form>
