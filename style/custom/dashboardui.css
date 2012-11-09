@@ -319,7 +319,7 @@ table#optionTable {
     border-top: 1px solid #fff;
 }
 #optionTable tr:hover {
-    background-color: #ccc;
+    background-color: #DDDDDD;
 }
 #optionTable th {
     background-color: #fff;

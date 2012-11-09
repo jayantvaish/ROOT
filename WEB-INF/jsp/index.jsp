@@ -72,7 +72,7 @@
 		    <div id="div2" class="io-footer-options" style="float:right"></div>
 
                     <div class="optionContent" style="display:none"> 
-			<table id="optionTable">
+			<table id="optionTable" cellpadding="5">
 			<tr><td>
 			<a class="addtab headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_tab"/></a>&nbsp;
                         &nbsp;</td></tr>
