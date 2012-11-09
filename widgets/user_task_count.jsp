@@ -53,7 +53,7 @@ function displayUserwiseTaskGraph(dataObj)
       .margin({top: 30, right: 20, bottom: 50, left: 125})
       .showValues(false)
       .tooltips(true)
-      .showControls(true);
+      .showControls(false);
 
   chart.yAxis
       .tickFormat(d3.format('f:'));
