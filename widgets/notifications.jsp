@@ -77,10 +77,11 @@ function createNotificationsChart(data)
       chart.y(function(d) { return d.value });
       chart.staggerLabels(true);
       chart.tooltips(true);
-      chart.showValues(true);
+      chart.showValues(false);
       chart.xAxis.showMaxMin(false);
       chart.yAxis.showMaxMin(false);
       chart.yAxis.axisLabel('Count');
+      chart.yAxis.tickFormat(d3.format('f:'));
 	d3.select('#chart3 svg')
       .datum(data)
 	  .transition().duration(500)
