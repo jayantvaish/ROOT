@@ -56,7 +56,7 @@ function addMultiBarGraph(dataObj)//array defining layers, number of processes, 
       	chart.color(['#1f77b4','#aec7e8','#ff7f0e','#FFD6AD']);
 	chart.yAxis
        		.tickFormat(d3.format(',0.01f'));
-        
+        chart.showControls(false);
 	d3.select('#chart2 svg')
         	.datum(dataObj)
       		.transition().duration(500).call(chart);
