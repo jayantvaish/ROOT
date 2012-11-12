@@ -198,7 +198,7 @@ $(function () {
 		        at: 'bottom right',
 		        adjust: {
 		            x: 120,
-		            y: 8
+		            y: 0
 		        },
 		        viewport: $(window),
 
@@ -215,8 +215,8 @@ $(function () {
 		        my: 'top center',
 		        at: 'bottom right',
 		        adjust: {
-		            x: 35,
-		            y: 8
+		            x: 25,
+		            y: 0
 		        },
 		        viewport: $(window),
 

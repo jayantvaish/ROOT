@@ -120,14 +120,6 @@ body {
   font-size :14px;
   color: #000;
 }
-.headerlinks {
-    font-weight: bold;
-    margin-left: 73%;
-    margin-right: 10%;
-    margin-top: -25px;
-    position: relative;
-    text-decoration: none;
-}
 .headerbox {
   height:148px;
 }
@@ -311,23 +303,10 @@ a.disabled {
 {
 	height:250px;
 }
-table#optionTable {
-    border-collapse: collapse;   
-}
 #optionTable tr {
     background-color: #ffffff;
-    border-top: 1px solid #fff;
 }
 #optionTable tr:hover {
     background-color: #DDDDDD;
-}
-#optionTable th {
-    background-color: #fff;
-}
-#optionTable th, #example td {
-    padding: 0px 0px;
-}
-#optionTable td:hover {
     cursor: pointer;
 }
-

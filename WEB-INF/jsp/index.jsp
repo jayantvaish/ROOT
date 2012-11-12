@@ -73,13 +73,18 @@
 
                     <div class="optionContent" style="display:none"> 
 			<table id="optionTable" cellpadding="5">
-			<tr><td>
-			<a class="addtab headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_tab"/></a>&nbsp;
-                        &nbsp;</td></tr>
-			<tr><td><a class="dmopenaddwidgetdialog headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_add_widget"/></a>&nbsp;
-                        &nbsp;</td></tr>
-			<tr><td><a class="dmeditLayout headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_edit_layout"/></a></td></tr>
-			<tr><td><a class="dmsaveDashboard headerlink" href="#"><fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/></a></td></tr>
+			  <tr class="addtab headerlink"><td>
+			    <fmt:message key="com_intalio_bpms_dashboard_add_tab"/>
+			  </td></tr>
+			  <tr class="dmopenaddwidgetdialog headerlink"><td>
+			    <fmt:message key="com_intalio_bpms_dashboard_add_widget"/>
+			  </td></tr>
+			  <tr class="dmeditLayout headerlink"><td>
+			    <fmt:message key="com_intalio_bpms_dashboard_edit_layout"/>
+			  </td></tr>
+			  <tr class="dmsaveDashboard headerlink"><td>
+			    <fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/>
+			  </td></tr>
                     	</table>
 		    </div>
 
