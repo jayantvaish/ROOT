@@ -71,19 +71,19 @@
                     <div id="div1" class="io-footer" style="float:right"></div>
 		    <div id="div2" class="io-footer-options" style="float:right"></div>
 
-                    <div class="optionContent" style="display:none"> 
+                    <div class="optionContent" style="float:center;display:none;margin-left:-20px;margin-right:-20px;margin-top:-2px;margin-bottom:-2px;"> 
 			<table id="optionTable" cellpadding="5">
 			  <tr class="addtab headerlink"><td>
-			    <fmt:message key="com_intalio_bpms_dashboard_add_tab"/>
+			    &nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="com_intalio_bpms_dashboard_add_tab"/>&nbsp;&nbsp;&nbsp;&nbsp;
 			  </td></tr>
 			  <tr class="dmopenaddwidgetdialog headerlink"><td>
-			    <fmt:message key="com_intalio_bpms_dashboard_add_widget"/>
+			    &nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="com_intalio_bpms_dashboard_add_widget"/>&nbsp;&nbsp;&nbsp;&nbsp;
 			  </td></tr>
 			  <tr class="dmeditLayout headerlink"><td>
-			    <fmt:message key="com_intalio_bpms_dashboard_edit_layout"/>
+			    &nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="com_intalio_bpms_dashboard_edit_layout"/>&nbsp;&nbsp;&nbsp;&nbsp;
 			  </td></tr>
 			  <tr class="dmsaveDashboard headerlink"><td>
-			    <fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/>
+			    &nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="com_intalio_bpms_dashboard_save_dashboard"/>&nbsp;&nbsp;&nbsp;&nbsp;
 			  </td></tr>
                     	</table>
 		    </div>
