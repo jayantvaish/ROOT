@@ -8,7 +8,7 @@ getData();
 function getData()
 {
 	if(dashboardData.isConsoleAccessible == "true"){
-	  showVacation(data);
+	  showVacation(dashboardData);
 	}
 }
 /**

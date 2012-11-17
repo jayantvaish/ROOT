@@ -8,7 +8,7 @@ getData();
 function getData()
 {
 	if(dashboardData.isConsoleAccessible == "true"){
-	  createWsResTimeChartData(data);
+	  createWsResTimeChartData(dashboardData);
 	}
 }
 /**
