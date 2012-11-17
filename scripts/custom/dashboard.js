@@ -59,6 +59,7 @@ var isConsoleAccessible;
 var dashboardStateUrl = 'dsState.json';
 var dsState;
 var widgetArr = [];
+var dashboardData;
 var defaultData = {
 "result" :
   {
@@ -239,6 +240,7 @@ $(function () {
 			submitActionToURL('login.htm','logOut');
             else
             {
+				dashboardData = data;
 				isConsoleAccessible = data.isConsoleAccessible;
 				$("#userProfile span").text(data.currentUser);
 				if(isConsoleAccessible == "true")

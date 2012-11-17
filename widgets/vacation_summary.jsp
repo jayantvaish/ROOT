@@ -7,22 +7,9 @@
 getData();
 function getData()
 {
-	var url = '../data.json?filter=1d';
-	$.ajax({
-		  url: url,
-		  cache:false,
-		  async: true,
-		  dataType: 'json',
-		  error:function(e){
-			  //alert("Error" + e);
-		  },
-		  success: function (data) {	
-								if(data.isConsoleAccessible == "true")
-								{
-									showVacation(data);
-								}
-							}
-		});
+	if(dashboardData.isConsoleAccessible == "true"){
+	  showVacation(data);
+	}
 }
 /**
  * @Function Name   : isObjectEmpty 

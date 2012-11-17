@@ -7,20 +7,8 @@
 getData();
 function getData()
 {
-	var url = '../data.json?filter=1d';
-	$.ajax({
-		  url: url,
-		  cache:false,
-		  async: true,
-		  dataType: 'json',
-		  error:function(e){
-			  console.log("Error occured");
-		  },
-		  success: function (data) {	
-									$("#accessible").val(data.isConsoleAccessible);
-									showTaskSummary(data);
-								   }
-		});
+	$("#accessible").val(dashboardData.isConsoleAccessible);
+	showTaskSummary(dashboardData);
 }
 /**
  * @Function Name   : isObjectEmpty 

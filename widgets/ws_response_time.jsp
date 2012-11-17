@@ -7,22 +7,9 @@
 getData();
 function getData()
 {
-	var url = '../data.json?filter=1d';
-	$.ajax({
-		  url: url,
-		  cache:false,
-		  async: true,
-		  dataType: 'json',
-		  error:function(e){
-			  console.log("Error occured");
-		  },
-		  success: function (data) {	
-								if(data.isConsoleAccessible == "true")
-								{
-									createWsResTimeChartData(data);
-								}
-							}
-		});
+	if(dashboardData.isConsoleAccessible == "true"){
+	  createWsResTimeChartData(data);
+	}
 }
 /**
  * @Function Name   : isObjectEmpty 
